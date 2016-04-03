@@ -5,31 +5,38 @@
     </super-navbar-title>
   </super-navbar>
 
+<!-- new user form filled out for user information, connected to addUser function -->
   <div class="info">
+    <form ng-submit="addUser()">
       <label class="item item-input">
-        <input type="text" placeholder="First Name">
+        <input type="text" placeholder="First Name" ng-model="firstName">
       </label>
       <label class="item item-input">
-        <input type="text" placeholder="Last Name">
+        <input type="text" placeholder="Last Name"  ng-model="lastName">
       </label>
       <label class="item item-input">
-        <textarea placeholder="Phone"></textarea>
+        <input type="text" placeholder="Phone" ng-model="phone">
       </label>
       <label class="item item-input">
-        <textarea placeholder="Location"></textarea>
+        <input type="text" placeholder="Terminal" ng-model="terminal">
       </label>
+      <button class="button button-full button-positive" type="submit" >
+      Create New User
+    </button>
+    </form>
   </div>
 
   <!-- <super-modal-show location="users#new">  -->
-    <button class="button button-full button-positive">
-      Create a new users
-    </button>
+    
   <!-- </super-modal-show> -->
 
-  
+  <!-- loop through and display all names in the firebase database (for debug purposes) -->
   <ul id="example-messages" class="example-chat-messages">
+    <li> List of user names and locations in the database right now </li>
     <li ng-repeat="user in users">
-      <strong class="example-chat-username">{{ user.Name }}</strong>
+      <strong class="example-chat-username">{{ user.firstName }}, {{ user.terminal }}</strong>
     </li>
   </ul>
+
+
 </div>
