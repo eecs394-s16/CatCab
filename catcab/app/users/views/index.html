@@ -5,8 +5,6 @@
     </super-navbar-title>
   </super-navbar>
 
-  <div ng-show="showSpinner" ng-include="'_spinner.html'"></div>
-  <div ng-hide="showSpinner">
   <div class="info">
       <label class="item item-input">
         <input type="text" placeholder="First Name">
@@ -20,28 +18,17 @@
       <label class="item item-input">
         <textarea placeholder="Location"></textarea>
       </label>
-  </div> 
-
-    <ul class="list" ng-hide="userss.length == 0">
-
-      <!-- navigates to the the users in the db, one user one line -->
-      <!-- <super-navigate location="users#show" data-params-id="{{ users.id }}" ng-repeat="users in userss"> 
-        <li class="item item-icon-right">
-          <span ng-bind="users['ID']"></span>
-          <i class="icon super-ios-arrow-right"></i>
-        </li>
-      </super-navigate> -->
-
-    </ul>
-
-    <!-- <h4 ng-show="userss.length == 0" class="assertive padding">
-      No userss found. Create one?
-    </h4> -->
-
-    <super-modal-show location="users#new">
-      <button class="button button-full button-positive">
-        Create a new users
-      </button>
-    </super-modal-show>
   </div>
+
+  <super-modal-show location="users#new">
+    <button class="button button-full button-positive">
+      Create a new users
+    </button>
+  </super-modal-show>
+
+  <ul id="example-messages" class="example-chat-messages">
+    <li ng-repeat="user in users">
+      <strong class="example-chat-username">{{ user.Name }}</strong>
+    </li>
+  </ul>
 </div>

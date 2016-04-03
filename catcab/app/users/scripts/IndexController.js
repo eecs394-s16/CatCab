@@ -1,13 +1,8 @@
 angular
   .module('users')
-  .controller("IndexController", function ($scope, Users, supersonic) {
-    $scope.userss = null;
-    $scope.showSpinner = true;
+  .controller("IndexController", ["$scope", "$firebaseArray",
+    function ($scope, $firebaseArray, supersonic) {
 
-    Users.all().whenChanged( function (userss) {
-        $scope.$apply( function () {
-          $scope.userss = userss;
-          $scope.showSpinner = false;
-        });
-    });
-  });
+    var ref = new Firebase("https://catcab.firebaseio.com/");
+    $scope.users = $firebaseArray(ref);
+  }]);
