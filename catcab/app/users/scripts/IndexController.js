@@ -1,5 +1,6 @@
 var myId;
 var matched = false;
+var waiting = false;
 
 angular
   .module('users')
@@ -12,13 +13,14 @@ angular
 
     // add a new user to the database when a new person fills out the form 
     $scope.addUser = function() {
-    $scope.users.$add({
-      firstName: $scope.firstName,
-      lastName: $scope.lastName,
-      phone: $scope.phone,
-      terminal: $scope.terminal,
-      matchId: "no one"
-    }).then(function(ref) {
+      waiting = true;
+      $scope.users.$add({
+        firstName: $scope.firstName,
+        lastName: $scope.lastName,
+        phone: $scope.phone,
+        terminal: $scope.terminal,
+        matchId: "no one"
+      }).then(function(ref) {
       myId = ref.key();
       supersonic.logger.log("My key is "+myId);
 
@@ -41,6 +43,7 @@ angular
             matchId: matchRecord.matchId
           };
           matched = true;
+          waiting = false;
         }
         else if(event.event==="child_added" && event.key!==myId){
           var newRecord = $scope.users.$getRecord(event.key);
@@ -66,6 +69,7 @@ angular
             $scope.users.$save(newRecord);
             $scope.users.$save(myRecord);
             matched = true;
+            waiting = false;
           }
         }
       });
