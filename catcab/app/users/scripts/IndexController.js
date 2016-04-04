@@ -49,6 +49,7 @@ angular
               var terminal = newRecord.terminal;
 
               //found a match
+              if (terminal === $scope.terminal && newRecord.matchId === "") {
 
                 //change the newRecord match 
                 newRecord.matchId = myId;
