@@ -18,7 +18,8 @@ angular
           lastName: $scope.lastName,
           phone: $scope.phone,
           terminal: $scope.terminal,
-          matchId: "no one"
+          matchId: "",
+          timeStamp: Firebase.ServerValue.TIMESTAMP
         }).then(function(ref) {
           // Save current user's key
           myId = ref.key();
@@ -48,7 +49,6 @@ angular
               var terminal = newRecord.terminal;
 
               //found a match
-              if (terminal === $scope.terminal && (newRecord.matchId === "no one")) {
 
                 //change the newRecord match 
                 newRecord.matchId = myId;
