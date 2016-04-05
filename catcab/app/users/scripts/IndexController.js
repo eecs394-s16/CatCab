@@ -11,6 +11,8 @@ angular
       $scope.users = $firebaseArray(ref);
       $scope.matchStatus = false;
       $scope.match = null;
+      $scope.waiting = false;
+      $scope.showUsers = false;
       // add a new user to the database when a new person fills out the form 
       $scope.addUser = function() {
         waiting = true;
@@ -31,7 +33,6 @@ angular
             supersonic.logger.log(event);
 
             var myRecord = $scope.users.$getRecord(myId);
-
             // Someone matched with us
             if (event.event === "child_changed" && event.key === myId) {
               matchRecord = $scope.users.$getRecord(myRecord.matchId)
@@ -81,6 +82,7 @@ angular
             }
           });
         });
+        $scope.waiting = true;
       };
 
       // PHOTO UPLOADING/DISPLAYING CODE
@@ -103,6 +105,10 @@ angular
 		navigator.camera.getPicture(onCameraSuccess, onCameraFail, options);
 		$scope.$apply();
 	};    
+
+  $scope.showTravelers = function() {
+    $scope.showUsers = !$scope.showUsers;
+  }
     
 	// Uses the imageData (base64 string) to create a full image source for the HTML img tag
     function onCameraSuccess(imageData) {
