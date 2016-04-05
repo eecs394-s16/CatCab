@@ -5,8 +5,23 @@
     </super-navbar-title>
   </super-navbar>
 
+ <div class="info" ng-hide="matchStatus">
+     <img width="50%" height = "50%" ng-src="{{ user.imgSrc}}">
+     <div>
+      <!-- Image upload and display -->
+  <!-- This does not currently push to the database. It just lets the user upload a photo, converts the photo to base64, then displays the photo on the page -->
+  
+    <button class="button button-full button-positive icon-left super-image" ng-click="getImage()">Upload Photo</button> 
+
+        <p>Your uploaded image:</p>
+        <img  width="100%" height="100%" ng-src="{{imgSrc}}">
+        <!-- <p>Image data (in base 64) should appear below:</p>
+        <p id="Data">Data: {{imgData}}</p> -->
+
+  </div>
+</div>  
 <!-- new user form filled out for user information, connected to addUser function -->
-  <div class="info">
+  <div class="info" ng-hide="matchStatus">
     <form ng-submit="addUser()">
       <label class="item item-input">
         <input type="text" placeholder="First Name" ng-model="firstName">
@@ -37,6 +52,9 @@
     </form>
   </div>
 
+<div ng-show="matchStatus">
+  <h3> matched!!!</h3>
+</div>
   <!-- <super-modal-show location="users#new">  -->
     
   <!-- </super-modal-show> -->
@@ -49,18 +67,7 @@
       <!-- Testing imgSrc. It works! -->
       <!-- This displays all base64 images that exist in the database next to the image's user's name and terminal -->
       <!-- (Currently the database-side images are hard-coded via the web interface)-->
-      <img width="50%" height = "50%" ng-src="{{ user.imgSrc}}">
     </li>
   </ul>
 
-  <!-- Image upload and display -->
-  <!-- This does not currently push to the database. It just lets the user upload a photo, converts the photo to base64, then displays the photo on the page -->
-  <div>
-    <button class="button button-full button-positive icon-left super-image" ng-click="getImage()">Upload Photo</button> 
-
-        <p>Your uploaded image:</p>
-        <img  width="100%" height="100%" ng-src="{{imgSrc}}">
-        <!-- <p>Image data (in base 64) should appear below:</p>
-        <p id="Data">Data: {{imgData}}</p> -->
-
-</div>
+  
