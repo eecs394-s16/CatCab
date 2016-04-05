@@ -5,14 +5,16 @@
     </super-navbar-title>
   </super-navbar>
 
-<!-- Hide the form when a match is found -->
- <div class="info" ng-hide="matchStatus">
+<!-- Hide the image when a match is found -->
+ <div class="info" ng-hide="matchStatus || waiting">
      <img width="100%" height = "100%" ng-src="{{ user.imgSrc}}">
      <div>
     <!-- Choose a photo to upload from user's camera roll -->
     <button class="button button-full button-positive icon-left super-image" ng-click="getImage()">Upload Photo</button> 
         <!-- Display image-->
-        <img  width="100%" height="100%" ng-src="{{imgSrc}}">
+        <div ng-hide="matchStatus || waiting">
+          <img  width="100%" height="100%" ng-src="{{imgSrc}}">
+        </div>
         <!-- <p>Image data (in base 64) should appear below:</p>
         <p id="Data">Data: {{imgData}}</p> -->
 
@@ -44,27 +46,38 @@
             <option>Terminal 5</option>
           </select>
         </label>
-
+      <div ng-hide="matchStatus || waiting">
       <button class="button button-full button-positive" type="submit" >
       Create New User
-    </button>
+      </button>
+      </div>
     </form>
   </div>
 
+<!-- Indicate info has been saved -->
+<div ng-show="waiting">
+  <h4>Great, Your info has been saved.</h4>
+</div>
+
+<!-- Indicate no match has been found so far -->
+<div ng-show="!matchStatus && waiting">
+  <h4>But we haven't found a match for you yet!</h4>
+</div>
+
 <!-- Show the result when a match is found -->
 <div ng-show="matchStatus">
-  <h3> Matched!!!</h3>
+  <h4>You've been matched!!!</h4>
   <img width="100%" height = "100%" ng-src="{{ match.imgSrc}}">
-   <h3> Name: {{match.firstName}} {{match.lastName}}</h3>
-   <h3>Call: {{match.phone}} </h3>
+   <h3>Name: {{match.firstName}} {{match.lastName}}</h3>
+   <h3>Phone: {{match.phone}} </h3>
    <h3>Terminal: {{match.terminal}} </h3>
-
 </div>
   <!-- <super-modal-show location="users#new">  -->
     
   <!-- </super-modal-show> -->
-
+  <button class="button button-full button-positive icon-left" ng-click="showTravelers()">Show/Hide Travelers</button> 
   <!-- loop through and display all names in the firebase database (for debug purposes) -->
+<div ng-show="showUsers">
   <ul id="example-messages" class="example-chat-messages">
     <li> List of user names and locations in the database right now </li>
     <li ng-repeat="user in users">
@@ -74,5 +87,6 @@
       <!-- (Currently the database-side images are hard-coded via the web interface)-->
     </li>
   </ul>
+</div>
 
   
