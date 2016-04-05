@@ -35,7 +35,7 @@ angular
             var myRecord = $scope.users.$getRecord(myId);
             // Someone matched with us
             if (event.event === "child_changed" && event.key === myId) {
-              matchRecord = $scope.users.$getRecord(myRecord.matchId)
+              matchRecord = $scope.users.$getRecord(myRecord.matchId);
               $scope.match = {
                 firstName: matchRecord.firstName,
                 lastName: matchRecord.lastName,
@@ -108,7 +108,7 @@ angular
 
   $scope.showTravelers = function() {
     $scope.showUsers = !$scope.showUsers;
-  }
+  };
     
 	// Uses the imageData (base64 string) to create a full image source for the HTML img tag
     function onCameraSuccess(imageData) {
