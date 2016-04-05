@@ -17,9 +17,20 @@
       <label class="item item-input">
         <input type="text" placeholder="Phone" ng-model="phone">
       </label>
-      <label class="item item-input">
-        <input type="text" placeholder="Terminal" ng-model="terminal">
-      </label>
+      
+       <label class="item item-input item-select">
+          <div class="input-label">
+            Terminal
+          </div>
+           
+          <select ng-model="terminal">
+            <option>Terminal 1</option>
+            <option selected>Terminal 2</option>
+            <option>Terminal 3</option>
+            <option>Terminal 5</option>
+          </select>
+        </label>
+
       <button class="button button-full button-positive" type="submit" >
       Create New User
     </button>
