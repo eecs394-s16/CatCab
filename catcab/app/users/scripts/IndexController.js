@@ -8,10 +8,9 @@ angular
       //create connection with the db, put users into the "users" folder on firebase
       var ref = new Firebase("https://catcab.firebaseio.com/users");
       // download the data into a local object
-
       $scope.users = $firebaseArray(ref);
-
       $scope.matchStatus = false;
+      $scope.match = null;
       // add a new user to the database when a new person fills out the form 
       $scope.addUser = function() {
         waiting = true;
@@ -44,7 +43,7 @@ angular
               };
               waiting = false;
               $scope.matchStatus = true;
-
+              $scope.match = matchRecord;
 
               // Stop watching
               unwatch();
@@ -73,6 +72,7 @@ angular
                 $scope.users.$save(myRecord);
                 waiting = false;
                 $scope.matchStatus = true;
+                $scope.match = matchRecord;
                 // Stop watching
                 unwatch();
               }
