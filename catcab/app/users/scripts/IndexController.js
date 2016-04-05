@@ -20,6 +20,7 @@ angular
           phone: $scope.phone,
           terminal: $scope.terminal,
           matchId: "",
+          imgSrc: $scope.imgSrc,
           timeStamp: Firebase.ServerValue.TIMESTAMP
         }).then(function(ref) {
           // Save current user's key
@@ -39,7 +40,8 @@ angular
                 lastName: matchRecord.lastName,
                 phone: matchRecord.phone,
                 terminal: matchRecord.terminal,
-                matchId: matchRecord.matchId
+                matchId: matchRecord.matchId,
+                imgSrc: matchRecord.imgSrc
               };
               waiting = false;
               $scope.matchStatus = true;
