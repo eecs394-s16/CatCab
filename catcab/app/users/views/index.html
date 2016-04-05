@@ -35,8 +35,21 @@
     <li> List of user names and locations in the database right now </li>
     <li ng-repeat="user in users">
       <strong class="example-chat-username">{{ user.firstName }}, {{ user.terminal }}</strong>
+      <!-- Testing imgSrc. It works! -->
+      <!-- This displays all base64 images that exist in the database next to the image's user's name and terminal -->
+      <!-- (Currently the database-side images are hard-coded via the web interface)-->
+      <img width="50%" height = "50%" ng-src="{{ user.imgSrc}}">
     </li>
   </ul>
 
+  <!-- Image upload and display -->
+  <!-- This does not currently push to the database. It just lets the user upload a photo, converts the photo to base64, then displays the photo on the page -->
+  <div>
+    <button class="button button-full button-positive icon-left super-image" ng-click="getImage()">Upload Photo</button> 
+
+        <p>Your uploaded image:</p>
+        <img  width="100%" height="100%" ng-src="{{imgSrc}}">
+        <!-- <p>Image data (in base 64) should appear below:</p>
+        <p id="Data">Data: {{imgData}}</p> -->
 
 </div>
