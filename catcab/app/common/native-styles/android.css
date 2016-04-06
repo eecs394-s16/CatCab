@@ -4,7 +4,7 @@
  ***********************************************************/
 
 navigation-bar {
-  background-color: #00B5FF;
+  background-color: rgb(078, 042, 132);
   color: #ffffff;
   padding-left: 6px;
   padding-right: 6px;
@@ -12,7 +12,7 @@ navigation-bar {
 
 navigation-bar title {
   color: #ffffff;
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 600;
 }
 
