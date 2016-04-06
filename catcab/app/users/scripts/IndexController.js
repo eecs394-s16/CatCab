@@ -27,11 +27,11 @@ angular
           imgSrc: $scope.imgSrc,
           timeStamp: Firebase.ServerValue.TIMESTAMP
         }).then(function(ref) {
-          $scope.firstName = "";
-          $scope.lastName = "";
-          $scope.phone = "";
-          $scope.terminal = "";
-          $scope.imgSrc = null;
+          // $scope.firstName = "";
+          // $scope.lastName = "";
+          // $scope.phone = "";
+          // $scope.terminal = "";
+          // $scope.imgSrc = null;
           // Save current user's key
           myId = ref.key();
           supersonic.logger.log("My key is " + myId);
