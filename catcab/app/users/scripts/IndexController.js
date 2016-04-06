@@ -23,6 +23,7 @@ angular
           lastName: $scope.lastName,
           phone: $scope.phone,
           terminal: $scope.terminal,
+          destination: $scope.destination,
           matchId: "",
           imgSrc: $scope.imgSrc,
           timeStamp: Firebase.ServerValue.TIMESTAMP
@@ -48,6 +49,7 @@ angular
                 lastName: matchRecord.lastName,
                 phone: matchRecord.phone,
                 terminal: matchRecord.terminal,
+                destination: matchRecord.destination,
                 matchId: matchRecord.matchId,
                 imgSrc: matchRecord.imgSrc
               };
@@ -62,7 +64,8 @@ angular
               var terminal = newRecord.terminal;
 
               //found a match
-              if (terminal === $scope.terminal && newRecord.matchId === "") {
+              if (terminal === $scope.terminal && newRecord.matchId === "" 
+                && newRecord.destination === $scope.destination) {
 
                 //change the newRecord match 
                 newRecord.matchId = myId;
@@ -75,6 +78,7 @@ angular
                   lastName: newRecord.lastName,
                   phone: newRecord.phone,
                   terminal: newRecord.terminal,
+                  destination: newRecord.destination,
                   matchId: newRecord.matchId
                 };
 

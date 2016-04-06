@@ -35,17 +35,27 @@
       </label>
       
        <label class="item item-input item-select">
-          <div class="input-label">
-            Terminal
-          </div>
+          <div class="input-label">Origin</div>
            
           <select ng-model="terminal">
-            <option>Terminal 1</option>
-            <option selected>Terminal 2</option>
-            <option>Terminal 3</option>
-            <option>Terminal 5</option>
+            <option>ORD - Terminal 1</option>
+            <option>ORD - Terminal 2</option>
+            <option>ORD - Terminal 3</option>
+            <option>ORD - Terminal 4</option>
           </select>
         </label>
+
+        <label class="item item-input item-select">
+          <div class="input-label">Destination</div>
+           
+          <select ng-model="destination">
+            <option>Northwestern - North Campus</option>
+            <option>Northwestern - South Campus</option>
+            <option>Downtown Evanston</option>
+            <option>Loyola</option>
+          </select>
+        </label>
+
       <div ng-hide="matchStatus || waiting">
         <button class="button button-full button-positive" type="submit" >
         Find Match
@@ -66,11 +76,12 @@
 
 <!-- Show the result when a match is found -->
 <div ng-show="matchStatus">
-  <h4>You've been matched!!!</h4>
+  <h4 style="text-align: center">You've been matched!!!</h4>
   <img width="100%" height = "100%" ng-src="{{ match.imgSrc}}">
-   <h3>Name: {{match.firstName}} {{match.lastName}}</h3>
-   <h3>Phone: {{match.phone}} </h3>
-   <h3>Terminal: {{match.terminal}} </h3>
+   <h4>Name: {{match.firstName}} {{match.lastName}}</h3>
+   <h4>Phone: {{match.phone}} </h3>
+   <h4>Origin: {{match.terminal}} </h3>
+   <h4>Destination: {{match.destination}} </h3>
 </div>
   <!-- <super-modal-show location="users#new">  -->
     
