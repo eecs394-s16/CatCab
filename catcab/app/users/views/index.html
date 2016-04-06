@@ -5,24 +5,24 @@
     </super-navbar-title>
   </super-navbar>
 
+<h3 style="text-align: center;"> Welcome to O'Hare airport!</h3>
 <!-- Hide the image when a match is found -->
  <div class="info" ng-hide="matchStatus || waiting">
-     <img width="100%" height = "100%" ng-src="{{ user.imgSrc}}">
+    <!--  <img width="100%" height = "100%" ng-src="{{ user.imgSrc}}"> -->
      <div>
+     <!-- Display image-->
+      <div ng-hide="matchStatus || waiting">
+        <img  width="100%" height="100%" ng-src="{{imgSrc}}">
+      </div>
     <!-- Choose a photo to upload from user's camera roll -->
-    <button class="button button-full button-positive icon-left super-image" ng-click="getImage()">Upload Photo</button> 
-        <!-- Display image-->
-        <div ng-hide="matchStatus || waiting">
-          <img  width="100%" height="100%" ng-src="{{imgSrc}}">
-        </div>
+    <button class="button button-full button-positive icon-left super-image" ng-click="getImage()" ng-hide="imgData">Upload Photo</button> 
         <!-- <p>Image data (in base 64) should appear below:</p>
         <p id="Data">Data: {{imgData}}</p> -->
-
   </div>
 </div>  
 <!-- Hide the form when a match is found -->
 <!-- new user form filled out for user information, connected to addUser function -->
-  <div class="info" ng-hide="matchStatus">
+  <div class="info" ng-hide="matchStatus || waiting">
     <form ng-submit="addUser()">
       <label class="item item-input">
         <input type="text" placeholder="First Name" ng-model="firstName">
@@ -47,21 +47,21 @@
           </select>
         </label>
       <div ng-hide="matchStatus || waiting">
-      <button class="button button-full button-positive" type="submit" >
-      Create New User
-      </button>
+        <button class="button button-full button-positive" type="submit" >
+        Find Match
+        </button>
       </div>
     </form>
   </div>
 
 <!-- Indicate info has been saved -->
-<div ng-show="waiting">
-  <h4>Great, Your info has been saved.</h4>
-</div>
+<!-- <div ng-show="waiting">
+  <h4>Info sumbitted</h4>
+</div> -->
 
 <!-- Indicate no match has been found so far -->
 <div ng-show="!matchStatus && waiting">
-  <h4>But we haven't found a match for you yet!</h4>
+  <h4 style="text-align: center; padding-top: 40%; padding-bottom: 30px;">Your match is coming soon!</h4>
 </div>
 
 <!-- Show the result when a match is found -->

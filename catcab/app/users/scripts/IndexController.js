@@ -13,6 +13,8 @@ angular
       $scope.match = null;
       $scope.waiting = false;
       $scope.showUsers = false;
+      $scope.imgData = null;
+      
       // add a new user to the database when a new person fills out the form 
       $scope.addUser = function() {
         waiting = true;
@@ -25,6 +27,11 @@ angular
           imgSrc: $scope.imgSrc,
           timeStamp: Firebase.ServerValue.TIMESTAMP
         }).then(function(ref) {
+          $scope.firstName = "";
+          $scope.lastName = "";
+          $scope.phone = "";
+          $scope.terminal = "";
+          $scope.imgSrc = null;
           // Save current user's key
           myId = ref.key();
           supersonic.logger.log("My key is " + myId);

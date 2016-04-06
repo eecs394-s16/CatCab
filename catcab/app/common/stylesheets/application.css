@@ -3,3 +3,8 @@
   text-align: center;
   font-weight: 600;
 }
+
+.button{
+	background-color: rgb(131, 110, 170) !important; 
+	border: none !important;
+}
