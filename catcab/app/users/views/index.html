@@ -65,17 +65,29 @@
 
 <!-- Indicate no match has been found so far -->
 <div ng-show="!matchStatus && waiting">
-  <h4 style="text-align: center; padding-top: 40%; padding-bottom: 30px;">Your match is coming soon!</h4>
+  <div class="card">
+    <div class="item item-text-wrap">
+      Your match is coming soon! Please make sure to pick up your bags and be ready to go.
+    </div>
+  </div>
 </div>
 
 <!-- Show the result when a match is found -->
+<!-- Show the result when a match is found -->
 <div ng-show="matchStatus">
-  <h4 style="text-align: center">You've been matched!!!</h4>
-  <img width="100%" height = "100%" ng-src="{{ match.imgSrc}}">
-   <h4>Name: {{match.firstName}} {{match.lastName}}</h3>
-   <h4>Phone: {{match.phone}} </h3>
-   <h4>Origin: {{match.terminal}} </h3>
-   <h4>Destination: {{match.destination}} </h3>
+  <div class="list card">
+    <div class="item item-text-wrap">
+      <h3> We found you a match! You will be riding with: </h3>
+      <h2> <b> {{match.firstName}} {{match.lastName}} </b></h2>
+    </div>
+    <div class="item item-image">
+        <img width="100%" height = "100%" ng-src="{{ match.imgSrc}}">
+    </div>
+    <div class="item">
+      <h2> Phone: {{match.phone}} </h2>
+      <h2> Meeting place: {{match.terminal}} Door E </h2>
+    </div>
+  </div> 
 </div>
   <!-- <super-modal-show location="users#new">  -->
     
