@@ -7,7 +7,11 @@ angular
     function($scope, $firebaseArray) {
       //create connection with the db, put users into the "users" folder on firebase
       var ref = new Firebase("https://catcab.firebaseio.com/users");
+      var dest_ref = new Firebase("https://catcab.firebaseio.com/destinations");
+      var org_ref = new Firebase("https://catcab.firebaseio.com/origins");
       // download the data into a local object
+      $scope.destinations = $firebaseArray(dest_ref);
+      $scope.origins = $firebaseArray(org_ref);
       $scope.users = $firebaseArray(ref);
       $scope.matchStatus = false;
       $scope.match = null;
@@ -23,6 +27,7 @@ angular
           lastName: $scope.lastName,
           phone: $scope.phone,
           terminal: $scope.terminal,
+          destination: $scope.destination,
           matchId: "",
           imgSrc: $scope.imgSrc,
           timeStamp: Firebase.ServerValue.TIMESTAMP
@@ -48,6 +53,7 @@ angular
                 lastName: matchRecord.lastName,
                 phone: matchRecord.phone,
                 terminal: matchRecord.terminal,
+                destination: matchRecord.destination,
                 matchId: matchRecord.matchId,
                 imgSrc: matchRecord.imgSrc
               };
@@ -62,7 +68,8 @@ angular
               var terminal = newRecord.terminal;
 
               //found a match
-              if (terminal === $scope.terminal && newRecord.matchId === "") {
+              if (terminal === $scope.terminal && newRecord.matchId === "" 
+                && newRecord.destination === $scope.destination) {
 
                 //change the newRecord match 
                 newRecord.matchId = myId;
@@ -75,6 +82,7 @@ angular
                   lastName: newRecord.lastName,
                   phone: newRecord.phone,
                   terminal: newRecord.terminal,
+                  destination: newRecord.destination,
                   matchId: newRecord.matchId
                 };
 
