@@ -18,7 +18,7 @@ angular
       $scope.waiting = false;
       $scope.showUsers = false;
       $scope.imgData = null;
-      
+
       // add a new user to the database when a new person fills out the form 
       $scope.addUser = function() {
         waiting = true;
@@ -68,8 +68,8 @@ angular
               var terminal = newRecord.terminal;
 
               //found a match
-              if (terminal === $scope.terminal && newRecord.matchId === "" 
-                && newRecord.destination === $scope.destination) {
+              if (terminal === $scope.terminal && newRecord.matchId === "" &&
+                newRecord.destination === $scope.destination) {
 
                 //change the newRecord match 
                 newRecord.matchId = myId;
@@ -101,33 +101,33 @@ angular
       };
 
       // PHOTO UPLOADING/DISPLAYING CODE
-  	// Will go into the image tag once user uploades a photo
-	 $scope.imgSrc = null;
-  
-	// Note/Feature to add: Allow users to use camera to take a current photo of themselves using front-cam?
+      // Will go into the image tag once user uploades a photo
+      $scope.imgSrc = null;
 
-	// Get the image from the user's camera roll
-	$scope.getImage = function() {
-    var options = {
-      quality: 60,
-      encodingType: "png",
-      mediaType: "picture",
-      targetWidth: 600,
-      targetHeight: 600,
-      destinationType: "dataURL"
-    };
+      // Note/Feature to add: Allow users to use camera to take a current photo of themselves using front-cam?
 
-    supersonic.media.camera.getFromPhotoLibrary(options).then(function(result) {
-      $scope.imgSrc = "data:image/png;base64," + result;
-      $scope.imgData = result;
-      $scope.$evalAsync();
-    });
-	};
+      // Get the image from the user's camera roll
+      $scope.getImage = function() {
+        var options = {
+          quality: 60,
+          encodingType: "png",
+          mediaType: "picture",
+          targetWidth: 600,
+          targetHeight: 600,
+          destinationType: "dataURL"
+        };
 
-  $scope.showTravelers = function() {
-    $scope.showUsers = !$scope.showUsers;
-  };
-	
+        supersonic.media.camera.getFromPhotoLibrary(options).then(function(result) {
+          $scope.imgSrc = "data:image/png;base64," + result;
+          $scope.imgData = result;
+          $scope.$evalAsync();
+        });
+      };
+
+      $scope.showTravelers = function() {
+        $scope.showUsers = !$scope.showUsers;
+      };
+
     }
   ]);
 
