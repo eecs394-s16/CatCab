@@ -108,18 +108,30 @@ angular
 
 	// Get the image from the user's camera roll
 	$scope.getImage = function() {
-		var options = {
-			quality: 50,
-			allowEdit: true,
-			encodingType: "png",
-			sourceType: 0,
-			// destinationType: navigator.camera.DestinationType.FILE_URI, // for image URI method
-			destinationType: navigator.camera.DestinationType.DATA_URL, // for base64 method
-			targetWidth: 300
-		};
-		navigator.camera.getPicture(onCameraSuccess, onCameraFail, options);
-		$scope.$apply();
-	};    
+		// var options = {
+		// 	quality: 50,
+		// 	allowEdit: true,
+		// 	encodingType: "png",
+		// 	sourceType: 0,
+		// 	// destinationType: navigator.camera.DestinationType.FILE_URI, // for image URI method
+		// 	destinationType: navigator.camera.DestinationType.DATA_URL, // for base64 method
+		// 	targetWidth: 300
+		// };
+		// navigator.camera.getPicture(onCameraSuccess, onCameraFail, options);
+
+    var options = {
+      quality: 70,
+      allowEdit: true,
+      // encodingType: "png",
+      mediaType: "picture",
+      destinationType: "dataURL"
+    };
+    supersonic.media.camera.getFromPhotoLibrary(options).then(function(result) {
+      $scope.imgSrc = "data:image/png;base64," + result;
+      $scope.imgData = result;
+      $scope.$evalAsync();
+    });
+	};
 
   $scope.showTravelers = function() {
     $scope.showUsers = !$scope.showUsers;
@@ -127,16 +139,15 @@ angular
     
 	// Uses the imageData (base64 string) to create a full image source for the HTML img tag
     function onCameraSuccess(imageData) {
-        $scope.imgSrc = "data:image/png;base64,"+imageData;
+        $scope.imgSrc = "data:image/png;base64," + imageData;
         $scope.imgData = imageData;
-        $scope.$apply();
+        $scope.$evalAsync();
     }
 
     // Displays a pop-up message if either no photo is selected, or another error occurs
     function onCameraFail(message) {
-        alert('Failed because: ' + message);
-        $scope.$apply();
-	}
+      alert('Failed because: ' + message);
+    }
 	
     }
   ]);
