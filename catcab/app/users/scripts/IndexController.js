@@ -108,24 +108,15 @@ angular
 
 	// Get the image from the user's camera roll
 	$scope.getImage = function() {
-		// var options = {
-		// 	quality: 50,
-		// 	allowEdit: true,
-		// 	encodingType: "png",
-		// 	sourceType: 0,
-		// 	// destinationType: navigator.camera.DestinationType.FILE_URI, // for image URI method
-		// 	destinationType: navigator.camera.DestinationType.DATA_URL, // for base64 method
-		// 	targetWidth: 300
-		// };
-		// navigator.camera.getPicture(onCameraSuccess, onCameraFail, options);
-
     var options = {
-      quality: 70,
-      allowEdit: true,
-      // encodingType: "png",
+      quality: 60,
+      encodingType: "png",
       mediaType: "picture",
+      targetWidth: 600,
+      targetHeight: 600,
       destinationType: "dataURL"
     };
+
     supersonic.media.camera.getFromPhotoLibrary(options).then(function(result) {
       $scope.imgSrc = "data:image/png;base64," + result;
       $scope.imgData = result;
@@ -136,18 +127,6 @@ angular
   $scope.showTravelers = function() {
     $scope.showUsers = !$scope.showUsers;
   };
-    
-	// Uses the imageData (base64 string) to create a full image source for the HTML img tag
-    function onCameraSuccess(imageData) {
-        $scope.imgSrc = "data:image/png;base64," + imageData;
-        $scope.imgData = imageData;
-        $scope.$evalAsync();
-    }
-
-    // Displays a pop-up message if either no photo is selected, or another error occurs
-    function onCameraFail(message) {
-      alert('Failed because: ' + message);
-    }
 	
     }
   ]);
