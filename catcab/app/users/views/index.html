@@ -67,8 +67,13 @@
 <div ng-show="!matchStatus && waiting">
   <div class="card">
     <div class="item item-text-wrap">
-      Your match is coming soon! Please make sure to pick up your bags and be ready to go.
+      Your match is coming soon!
     </div>
+  </div>
+  <div class="spinner">
+    <div class="bounce1"></div>
+    <div class="bounce2"></div>
+    <div class="bounce3"></div>
   </div>
 </div>
 
@@ -86,13 +91,17 @@
     <div class="item">
       <h2> Phone: {{match.phone}} </h2>
       <h2> Meeting place: {{match.terminal}} Door E </h2>
+      <h2> Destination: {{match.destination}}</h2>
     </div>
   </div> 
 </div>
   <!-- <super-modal-show location="users#new">  -->
     
   <!-- </super-modal-show> -->
-  <button class="button button-full button-positive icon-left" ng-click="showTravelers()">Show/Hide Travelers</button> 
+
+  <!-- HIDING DEBUG SHOW TRAVELLERS IN DB BUTTON -->
+<!--   <button class="button button-full button-positive icon-left" ng-click="showTravelers()">Show/Hide Travelers</button>  -->
+
   <!-- loop through and display all names in the firebase database (for debug purposes) -->
 <div ng-show="showUsers">
   <ul id="example-messages" class="example-chat-messages">
