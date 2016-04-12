@@ -114,6 +114,7 @@ angular
           mediaType: "picture",
           targetWidth: 600,
           targetHeight: 600,
+          allowEdit: true,
           destinationType: "dataURL"
         };
 
