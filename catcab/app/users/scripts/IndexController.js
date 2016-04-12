@@ -1,5 +1,7 @@
 var myId;
+var myMatchId;
 var waiting = false;
+
 
 angular
   .module('users')
@@ -18,6 +20,7 @@ angular
       $scope.waiting = false;
       $scope.showUsers = false;
       $scope.imgData = null;
+      $scope.matched_previously = false;
 
       // add a new user to the database when a new person fills out the form 
       $scope.addUser = function() {
@@ -43,11 +46,13 @@ angular
 
           var unwatch = $scope.users.$watch(function(event) {
             supersonic.logger.log(event);
+            supersonic.logger.log("I am "+myId+" and my match is "+myMatchId);
 
             var myRecord = $scope.users.$getRecord(myId);
             // Someone matched with us
             if (event.event === "child_changed" && event.key === myId) {
               matchRecord = $scope.users.$getRecord(myRecord.matchId);
+              supersonic.logger.log("Child Changed, matchRecord is "+matchRecord.firstName);
               $scope.match = {
                 firstName: matchRecord.firstName,
                 lastName: matchRecord.lastName,
@@ -57,12 +62,21 @@ angular
                 matchId: matchRecord.matchId,
                 imgSrc: matchRecord.imgSrc
               };
-              waiting = false;
-              $scope.matchStatus = true;
-              $scope.match = matchRecord;
+              myMatchId = myRecord.matchId;
+              $scope.matched_previously = true;
+              if (matchRecord){
+                waiting = false;
+                $scope.matchStatus = true;
+                $scope.match = matchRecord;
+              }
+              else{
+                waiting = true;
+                $scope.matchStatus = false;
+                $scope.match = matchRecord;
+              }
 
               // Stop watching
-              unwatch();
+              // unwatch();
             } else if (event.event === "child_added" && event.key !== myId) {
               var newRecord = $scope.users.$getRecord(event.key);
               var terminal = newRecord.terminal;
@@ -76,6 +90,7 @@ angular
 
                 //change my own match
                 myRecord.matchId = newRecord.$id;
+                myMatchId = myRecord.matchId;
 
                 $scope.match = {
                   firstName: newRecord.firstName,
@@ -85,6 +100,7 @@ angular
                   destination: newRecord.destination,
                   matchId: newRecord.matchId
                 };
+                $scope.matched_previously = true;
 
                 $scope.users.$save(newRecord);
                 $scope.users.$save(myRecord);
@@ -92,8 +108,15 @@ angular
                 $scope.matchStatus = true;
                 $scope.match = matchRecord;
                 // Stop watching
-                unwatch();
+                // unwatch();
               }
+            }
+            else if (event.event === "child_removed" && event.key === myMatchId){
+
+              supersonic.logger.log("You killed my child!");
+              waiting = true;
+              $scope.matchStatus = false;
+
             }
           });
         });
@@ -129,7 +152,48 @@ angular
         $scope.showUsers = !$scope.showUsers;
       };
 
+      $scope.cancel = function() {
+        //cancels the request
+
+        var myRecordRef = new Firebase("https://catcab.firebaseio.com/users/"+myId);
+        var myRecord = $scope.users.$getRecord(myId);
+        supersonic.logger.log("My matched id is "+myRecord.matchId);
+
+        if ($scope.waiting && !$scope.matchStatus)
+        {
+          supersonic.logger.log("Cancel a waiting request");
+          // done
+        }
+
+        if ($scope.matchStatus)
+        {
+          supersonic.logger.log("Cancel a matched request");
+          // deal with the match id of the other person
+          
+          var matchedRecord = $scope.users.$getRecord(myRecord.matchId);
+          matchedRecord.matchId = "";
+          $scope.users.$save(matchedRecord);
+
+        }
+        supersonic.logger.log("My ID (to be removed) is "+myId);
+
+        myRecordRef.remove();
+        // take out of the database
+
+        // set not matched previously 
+        supersonic.logger.log("1- Matched_previously is: "+$scope.matched_previously);
+        $scope.matched_previously = false;
+        supersonic.logger.log("2- Matched_previously is: "+$scope.matched_previously);
+
+
+        // go back to the home page
+        $scope.matchStatus = false;
+        $scope.waiting = false;
+
+      }
+
     }
+
   ]);
 
 // , supersonic

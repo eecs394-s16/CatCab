@@ -3,17 +3,17 @@
 module.exports =
 
   # See styling options for tabs and other native components in app/common/native-styles/ios.css or app/common/native-styles/android.css
-  tabs: [
-    {
-      title: "Home"
-      id: "index"
-      location: "users#index" # Supersonic module#view type navigation
-    }
+  # tabs: [
+  #  {
+  #    title: "Home"
+  #    id: "index"
+  #    location: "users#index" # Supersonic module#view type navigation
+  #  }
     
-  ]
+  # ]
 
-  # rootView:
-  #   location: "example#getting-started"
+  rootView:
+    location: "users#index"
 
   preloads: [
     {
