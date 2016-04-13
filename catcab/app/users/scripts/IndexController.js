@@ -21,8 +21,24 @@ angular
       $scope.showUsers = false;
       $scope.imgData = null;
       $scope.matched_previously = false;
-
       // add a new user to the database when a new person fills out the form 
+     
+     //get current location of the user
+      supersonic.device.geolocation.getPosition().then( function(position) {
+          var latitude = position.coords.latitude;
+          var longitude = position.coords.longitude;
+          //current location is northwestern
+          if (latitude >= 42.01 && latitude <= 42.08){
+            $scope.currLocation = "Northwestern";
+          }
+          if (longitude >= -87.94 && longitude <= -87.87){
+            $scope.currLocation = "O'Hare";
+          }
+          if (latitude >= 41.775 && latitude <= 41.795){
+            $scope.currLocation = "Midway";
+          }
+      });
+
       $scope.addUser = function() {
         waiting = true;
         $scope.users.$add({
@@ -35,12 +51,6 @@ angular
           imgSrc: $scope.imgSrc,
           timeStamp: Firebase.ServerValue.TIMESTAMP
         }).then(function(ref) {
-          // $scope.firstName = "";
-          // $scope.lastName = "";
-          // $scope.phone = "";
-          // $scope.terminal = "";
-          // $scope.imgSrc = null;
-          // Save current user's key
           myId = ref.key();
           supersonic.logger.log("My key is " + myId);
 

@@ -4,10 +4,9 @@
           CatCab
     </super-navbar-title>
   </super-navbar>
-
-<h3 style="text-align: center;"> Welcome to O'Hare airport!</h3>
+<h3 style="text-align: center;">Ready to take a ride from {{currLocation}}?</h3>
 <!-- Hide the image when a match is found -->
- <div class="info" ng-hide="matchStatus || waiting" >
+ <div class="info" id="image_block" ng-hide="matchStatus || waiting" >
     <!--  <img width="100%" height = "100%" ng-src="{{ user.imgSrc}}"> -->
      <div>
      <!-- Display image-->

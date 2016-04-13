@@ -54,9 +54,19 @@
 /* End CSS For Loading Symbol */
 
 .img_center{
-  margin-left:25%;
-  width: 50%;
-  height: 50%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 60%;
+  height: 60%;
+  border-radius: 5px;
 }
+
+#image_block{
+  margin-bottom: 5px;
+}
+
+
+
 
 
