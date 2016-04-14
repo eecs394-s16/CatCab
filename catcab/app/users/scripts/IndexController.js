@@ -11,9 +11,11 @@ angular
       var ref = new Firebase("https://catcab.firebaseio.com/users");
       var dest_ref = new Firebase("https://catcab.firebaseio.com/destinations");
       var org_ref = new Firebase("https://catcab.firebaseio.com/origins");
+      var loc_ref = new Firebase("https://catcab.firebaseio.com/locations");
       // download the data into a local object
       $scope.destinations = $firebaseArray(dest_ref);
       $scope.origins = $firebaseArray(org_ref);
+      $scope.locations = $firebaseArray(loc_ref);
       $scope.users = $firebaseArray(ref);
       $scope.matchStatus = false;
       $scope.match = null;
@@ -22,7 +24,7 @@ angular
       $scope.imgData = null;
       $scope.matched_previously = false;
       // add a new user to the database when a new person fills out the form 
-     
+
      //get current location of the user
       supersonic.device.geolocation.getPosition().then( function(position) {
           var latitude = position.coords.latitude;
@@ -30,14 +32,24 @@ angular
           //current location is northwestern
           if (latitude >= 42.01 && latitude <= 42.08){
             $scope.currLocation = "Northwestern";
+            $scope.searchText = "Northwestern";
           }
+          //current location is O'Hare
           if (longitude >= -87.94 && longitude <= -87.87){
             $scope.currLocation = "O'Hare";
+            $scope.searchText = "O'Hare";
           }
+          //current location is Midway
           if (latitude >= 41.775 && latitude <= 41.795){
             $scope.currLocation = "Midway";
+            $scope.currLocation = "Midway";
           }
+
+
+
+
       });
+
 
       $scope.addUser = function() {
         waiting = true;

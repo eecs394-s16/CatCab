@@ -37,7 +37,7 @@
           <div class="input-label">Origin</div>
            
           <select ng-model="terminal">
-            <option ng-repeat="origin in origins">{{origin.name}}</option>
+            <option ng-repeat="loc in locations | orderBy:'order'| filter: searchText">{{loc.name}}</option>
           </select>
         </label>
 
@@ -45,10 +45,10 @@
           <div class="input-label">Destination</div>
            
           <select ng-model="destination">
-            <option ng-repeat="destination in destinations">{{destination.name}}</option>
+            <option ng-repeat="loc in locations | orderBy:'order'| filter:'!' + searchText">{{loc.name}}</option>
           </select>
         </label>
-
+        <p> 
       <div ng-hide="matchStatus || waiting">
         <button class="button button-full button-positive" type="submit" >
         Find Match
@@ -56,7 +56,6 @@
       </div>
     </form>
   </div>
-
 <!-- Indicate info has been saved -->
 <!-- <div ng-show="waiting">
   <h4>Info sumbitted</h4>
