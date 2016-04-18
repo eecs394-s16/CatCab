@@ -13,17 +13,13 @@ module.exports =
   # ]
 
   rootView:
-    location: "users#index"
+    location: "users#login"
 
   preloads: [
-    {
-      id: "learn-more"
-      location: "example#learn-more"
-    }
-    {
-      id: "using-the-scanner"
-      location: "example#using-the-scanner"
-    }
+#    {
+#      id: "learn-more"
+#      location: "example#learn-more"
+#    }
   ]
 
   # drawers:
