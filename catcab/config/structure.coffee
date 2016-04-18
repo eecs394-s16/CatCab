@@ -17,8 +17,8 @@ module.exports =
 
   preloads: [
 #    {
-#      id: "learn-more"
-#      location: "example#learn-more"
+#      id: "home"
+#      location: "users#home"
 #    }
   ]
 
