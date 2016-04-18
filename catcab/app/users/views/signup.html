@@ -1,0 +1,43 @@
+<div ng-controller="SignupController">
+  <super-navbar>
+    <super-navbar-title>
+          CatCab
+    </super-navbar-title>
+  </super-navbar>
+  <h3 style="text-align: center; width:100%;"> Sign Up </h3>
+
+
+<!-- Hide the image when a match is found -->
+ <div class="info" id="image_block" >
+    <!--  <img width="100%" height = "100%" ng-src="{{ user.imgSrc}}"> -->
+     <div>
+     <!-- Display image-->
+      <div> <!-- took out ng-hide -->
+        <img  class="img_center" ng-src="{{imgSrc}}">
+      </div>
+    <!-- Choose a photo to upload from user's camera roll -->
+    <button class="button button-full button-positive icon-left super-image" ng-click="getImage()" ng-hide="imgData">Upload Photo</button> 
+
+  </div> 
+</div>  
+<!-- Hide the form when a match is found -->
+<!-- new user form filled out for user information, connected to addUser function -->
+  <div class="info">
+    <form ng-submit="addUser()">
+      <label class="item item-input">
+        <input type="text" placeholder="First Name" ng-model="firstName">
+      </label>
+      <label class="item item-input">
+        <input type="text" placeholder="Last Name"  ng-model="lastName">
+      </label>
+      <label class="item item-input">
+        <input type="tel" placeholder="Phone number" ng-model="phone">
+      </label>
+      
+      <div>
+        <button class="button button-full button-positive" type="submit" >
+        Register
+        </button>
+      </div>
+    </form>
+  </div>
