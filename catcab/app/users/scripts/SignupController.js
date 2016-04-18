@@ -26,7 +26,8 @@ angular
 						phone: $scope.phone,
 						imgSrc: $scope.imgSrc,
 						matches: "",
-						history: ""
+						history: "",
+						sent_welcome: 0
 				};
 				
 				obj.$value = data;

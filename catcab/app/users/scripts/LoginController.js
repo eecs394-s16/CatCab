@@ -31,7 +31,7 @@ angular
 				{
 					// got the user approved 
 
-					// save local storage
+					// save local storage 
 					supersonic.logger.log("Name is "+myRecord.firstName);
 
 					localStorage.setItem("firstName",myRecord.firstName);
