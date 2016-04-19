@@ -13,12 +13,12 @@ module.exports =
   # ]
 
   rootView:
-    location: "users#login"
+    location: "users#match_form"
 
   preloads: [
 #    {
-#      id: "home"
-#      location: "users#home"
+#      id: "learn-more"
+#      location: "example#learn-more"
 #    }
   ]
 
