@@ -162,3 +162,6 @@ function newChangeHandler(data) {
 users.orderByChild('timeStamp').endAt(Date.now()).on("child_added", oldUserHandler);
 users.orderByChild('timeStamp').startAt(Date.now()).on("child_added", newUserHandler);
 users.on("child_changed", newChangeHandler);
+
+// Easy way to add a new match :D
+// users.child("8476368102").child("matches").push({destination: "Northwestern - North Campus", myMatch: "", origin: "ORD - Terminal 2", type: "instant", status: "waiting", time: new Date().toISOString()});

@@ -1,0 +1,32 @@
+{
+    "users": {
+        "<phone number>": {
+            "firstName": string,
+            "lastName": string,
+            "imgSrc": string: base64-encoded png,
+            "matches": {
+                "<firebase-generated match ID>": {
+                    "type": "instant" or "scheduled",
+                    "origin": "Northwestern - North Campus",
+                    "destination": "ORD - Terminal 2",
+                    "wait": integer: number of minutes to wait, only for "instant" type,
+                    "time": string: scheduled time to leave in ISO 8601 format, only for "scheduled" type, ex. "2016-04-18T19:20:30",
+                    "status": string: one of: {"waiting", "matched", "cancelled", "finished"}; set status to "cancelled" in order to cancel a ride from any state,
+                    "myMatch": {
+                        "userId": string: "<phone number>" of other user,
+                        "matchId": string: "<matchID>" of other user,
+                        "time": string: time other user wants to leave, only for "scheduled" type
+                    }
+                }
+            },
+            "history": {
+                "<firebase-generated match ID>": {
+                    ...
+                }
+            }
+        },
+        "<phone number>": {
+            ...
+        }
+    }
+}
