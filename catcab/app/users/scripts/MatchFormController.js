@@ -52,10 +52,19 @@ angular
         // Fade into the home page once we put in the match
         var view = new supersonic.ui.View("users#home");
         var customAnimation = supersonic.ui.animate("fade");
-        supersonic.ui.layers.push(view, {animation:customAnimation});
+        supersonic.ui.layers.pop();//push(view, {animation:customAnimation});
 
 
-    }
+    };
+
+    $scope.homeTapped = function(){
+
+          var view = new supersonic.ui.View("users#home");
+          var customAnimation = supersonic.ui.animate("flipVerticalFromBottom");
+          supersonic.ui.layers.pop(); //push(view, { animation: customAnimation });
+
+    };
+
 
       // This combines the selected date and selected time into a single datetime object
     $scope.combineDateWithTime = function()
