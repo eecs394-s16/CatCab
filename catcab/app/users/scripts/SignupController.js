@@ -11,37 +11,55 @@ angular
 	     	$scope.imgData = null;
 			$scope.imgSrc = null;
 
+			$scope.valid_email = true;
+
 			$scope.addUser = function() {
-				var newuser = new Firebase("https://catcab.firebaseio.com/users/"+$scope.phone);
+
+				$scope.valid_email = $scope.email.endsWith("northwestern.edu");
+
+				if ($scope.valid_email === true)
+				{
+					supersonic.logger.log("Email is valid");
+
+					var newuser = new Firebase("https://catcab.firebaseio.com/users/"+$scope.phone);
 				
-				var obj = new $firebaseObject(newuser);
+					var obj = new $firebaseObject(newuser);
 
-				obj.$loaded().then(function() {
-				  	supersonic.logger.log(obj.$value); // "bar"
-				});
+					obj.$loaded().then(function() {
+					  	supersonic.logger.log(obj.$value); // "bar"
+					});
 
-				var data = {
-						firstName: $scope.firstName,
-						lastName: $scope.lastName,
-						phone: $scope.phone,
-						imgSrc: $scope.imgSrc,
-						matches: "",
-						history: "",
-						sent_welcome: 0
-				};
+					var data = {
+							firstName: $scope.firstName,
+							lastName: $scope.lastName,
+							phone: $scope.phone,
+							imgSrc: $scope.imgSrc,
+							matches: "",
+							history: "",
+							sent_welcome: 0,
+							email: $scope.email
+					};
+					
+					obj.$value = data;
+	  				obj.$save();
+
+					supersonic.logger.log("Added a user "+data.firstName+" and phone "+data.phone);
+
+					localStorage.setItem("phoneNumber",$scope.phone);
+					localStorage.setItem("firstName",data.firstName);
+					
+					var view = new supersonic.ui.View("users#home");
+					var customAnimation = supersonic.ui.animate("flipVerticalFromBottom");
+					supersonic.ui.layers.push(view, { animation: customAnimation });
+
+				}
+				else
+				{
+					supersonic.logger.log("Email is NOT valid");
+
+				}
+
 				
-				obj.$value = data;
-  				obj.$save();
-
-				supersonic.logger.log("Added a user "+data.firstName+" and phone "+data.phone);
-
-				localStorage.setItem("phoneNumber",$scope.phone);
-				localStorage.setItem("firstName",data.firstName);
-				
-				var view = new supersonic.ui.View("users#home");
-				var customAnimation = supersonic.ui.animate("flipVerticalFromBottom");
-				supersonic.ui.layers.push(view, { animation: customAnimation });
-
 			}; 
 
 
