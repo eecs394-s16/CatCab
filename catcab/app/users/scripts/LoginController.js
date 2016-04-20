@@ -36,7 +36,12 @@ angular
 
 					localStorage.setItem("firstName",myRecord.firstName);
 
+					localStorage.setItem("lastName", myRecord.lastName);
+
 					localStorage.setItem("phoneNumber",$scope.phone);
+
+					localStorage.setItem("imgSrc", myRecord.imgSrc);
+
 
 					// move to home view
 
