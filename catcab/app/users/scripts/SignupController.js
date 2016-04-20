@@ -36,6 +36,8 @@ angular
 
 				localStorage.setItem("phoneNumber",$scope.phone);
 				localStorage.setItem("firstName",data.firstName);
+				localStorage.setItem("lastName", data.lastName);
+				localStorage.setItem("imgSrc", data.imgSrc);
 				
 				var view = new supersonic.ui.View("users#home");
 				var customAnimation = supersonic.ui.animate("flipVerticalFromBottom");

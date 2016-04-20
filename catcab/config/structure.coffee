@@ -16,9 +16,13 @@ module.exports =
     location: "users#login"
 
   preloads: [
+     {
+       id: "match_form"
+       location: "users#match_form"
+     }
 #    {
-#      id: "home"
-#      location: "users#home"
+#      id: "learn-more"
+#      location: "example#learn-more"
 #    }
   ]
 

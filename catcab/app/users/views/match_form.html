@@ -1,0 +1,66 @@
+<div ng-controller="MatchFormController">
+  <super-navbar>
+    <super-navbar-title>
+          Schedule a Ride
+    </super-navbar-title>
+  </super-navbar>
+  <p></p>
+<!-- <h3 style="text-align: center;">Ready to take a ride from {{currLocation}}?</h3> -->
+<!-- Display User's Profile-->
+<div class="info" id="image_block">
+     <div>
+      <div>
+        <img style="width: 40%" class="img_center" ng-src="{{imgSrc}}">
+        <h4 align="middle"> {{firstName}} {{lastName}}</h4>
+        <!-- <h4 align="middle"> Kristen Amaddio </h4> -->
+      </div>
+  </div> 
+</div>  
+<!-- new match form, connected to findMatch function -->
+  <div class="info">
+    <form ng-submit="findMatch()">      
+       <label class="item item-input item-select">
+          <div class="input-label">Origin</div>
+           
+          <select ng-model="origin">
+            <option ng-repeat="loc in locations | orderBy:'order'">{{loc.name}}</option>
+          </select>
+        </label>
+
+        <label class="item item-input item-select">
+          <div class="input-label">Destination</div>
+           
+          <select ng-model="destination">
+            <option ng-repeat="loc in locations | orderBy:'order'">{{loc.name}}</option>
+          </select>
+        </label>
+
+        <!-- Give user option between leaving now and later -->
+        <!-- If they choose "later", the date/time option is revealed -->
+      <label class="item">
+          <div class="input-label inline">Leave</div>
+        <input type="radio" ng-model="leaveNowLater" value="now"> Now
+        <input type="radio" ng-model="leaveNowLater" value="later"> Later
+      </label>
+        
+        <div id="datetime" ng-show="leaveNowLater == 'later'">
+        <label class="item item-input item-select">
+          <div class="input-label">Date</div>
+          <input type="date" class="form-control" ng-model="departDate" ng-change="combineDateWithTime()">
+        </label>
+
+        <label class="item item-input item-select">
+          <div class="input-label">Time</div>
+          <input type="time" class="form-control" ng-model="departTime" ng-change="combineDateWithTime()">
+        </label>
+        <!-- <p> DateTime: {{datetime}} </p> -->
+      </div>
+      <div>
+        <button class="button button-full button-positive" >
+        Find Match
+        </button>
+      </div>
+    </form>
+  </div>
+
+  
