@@ -44,7 +44,8 @@ angular
           origin: $scope.origin,
           time: "" + String($scope.datetime),
           type: $scope.leaveNowLater,
-          myMatch: ""
+          myMatch: "",
+          status: "waiting"
         });
 
         user_matches_ref.push(trip_data);
