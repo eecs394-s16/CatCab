@@ -7,24 +7,22 @@
           CatCab
     	</super-navbar-title>
   	</super-navbar>
-	<h3 style="text-align: center; width:100%;"> Welcome, {{firstName}}! Here are the updates on your matches</h3>
+	<h3 style="text-align: center; width:100%;"> Welcome, {{userme.firstName}}! Here are your most recent ride requests.</h3>
 	<super-navigate view-id="match_form" location="users#match_form">
   <button class="button button-block button-royal icon-left super-plus">Find New Match</button>
   </super-navigate>
-	<div ng-repeat="match in matches" class="card">
-	  	<div ng-switch="match.status">
-		  	<div ng-switch-when="matched" class="list card">
-		  		<h5>You have been matched!</h5>
-		  		<h5>{{match.origin}} -> {{match.destination}}</h5>
-		  		<h5>Call Your Match: {{match.myMatch.userID}}</h5>
-		  	</div>
-		  	<div ng-switch-when="waiting" class="list card">
-		  		<h5>Looking for a match!</h5>
-		  		<h5>{{match.origin}} -> {{match.destination}}</h5>
-		  	</div>
-		  	<div ng-switch-default>
-		  		<h5>Ew!</h5>
-		  	</div>
-		</div>
+	<div ng-repeat="(key, match) in userme.matches" class="card">
+		<div ng-show="match.status == 'matched'" style="background-color:green; text-align: center;">
+			<h4>Ride Request- Match Found!</h4>
+		  	<p>{{match.origin}} -> {{match.destination}}</p>
+		  	<p>Call Your Match: {{match.myMatch.userId}}</p>
+			<button class="button button-positive" ng-click="decline_ride(key)">Cancel Ride </button>
+		</div> 
+		<div ng-show="match.status == 'waiting'" style="background-color:yellow; text-align: center;">
+			<h4>Ride Request- Waiting for Match</h4>
+			<h5>{{match.time}}</h5>
+		  	<p>{{match.origin}} ➝ {{match.destination}}</p>
+			<button class="button button-positive" ng-click="cancel_ride(key)">Cancel Ride </button>
+		</div> 
 	</div>
 </div>
