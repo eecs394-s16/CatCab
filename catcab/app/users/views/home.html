@@ -7,8 +7,24 @@
           CatCab
     	</super-navbar-title>
   	</super-navbar>
-	<h3 style="text-align: center; width:100%;"> Hi {{firstName}} </h3>
+	<h3 style="text-align: center; width:100%;"> Welcome, {{firstName}}! Here are the updates on your matches</h3>
 	<super-navigate view-id="match_form" location="users#match_form">
   <button class="button button-block button-royal icon-left super-plus">Find New Match</button>
   </super-navigate>
+	<div ng-repeat="match in matches" class="card">
+	  	<div ng-switch="match.status">
+		  	<div ng-switch-when="matched" class="list card">
+		  		<h5>You have been matched!</h5>
+		  		<h5>{{match.origin}} -> {{match.destination}}</h5>
+		  		<h5>Call Your Match: {{match.myMatch.userID}}</h5>
+		  	</div>
+		  	<div ng-switch-when="waiting" class="list card">
+		  		<h5>Looking for a match!</h5>
+		  		<h5>{{match.origin}} -> {{match.destination}}</h5>
+		  	</div>
+		  	<div ng-switch-default>
+		  		<h5>Ew!</h5>
+		  	</div>
+		</div>
+	</div>
 </div>

@@ -42,6 +42,8 @@ angular
 
 					localStorage.setItem("imgSrc", myRecord.imgSrc);
 
+					localStorage.setItem("matches", myRecord.matches);
+
 
 					// move to home view
 
