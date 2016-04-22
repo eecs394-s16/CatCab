@@ -15,14 +15,21 @@
 		<div ng-show="match.status == 'matched'" style="background-color:green; text-align: center;">
 			<h4>Ride Request- Match Found!</h4>
 		  	<p>{{match.origin}} -> {{match.destination}}</p>
-		  	<p>Call Your Match: {{match.myMatch.userId}}</p>
-			<button class="button button-positive" ng-click="decline_ride(key)">Cancel Ride </button>
+		  	<div ng-repeat="(key, user) in users">
+		  		<div ng-if="user.phone == match.myMatch.userId">
+		  			<p>Meet Your Match:</p>
+		  			<img style="width: 40%" class="img_center" ng-src="{{user.imgSrc}}">
+		  			<h5>{{user.firstName}} {{user.lastName}}</h5>
+		  			<p>{{user.phone}}</p>
+		  		</div>
+		  	</div>
+			<button class="button button-positive" ng-click="decline_ride(key)">Decline Ride</button>
 		</div> 
 		<div ng-show="match.status == 'waiting'" style="background-color:yellow; text-align: center;">
 			<h4>Ride Request- Waiting for Match</h4>
 			<h5>{{match.time}}</h5>
 		  	<p>{{match.origin}} ➝ {{match.destination}}</p>
-			<button class="button button-positive" ng-click="cancel_ride(key)">Cancel Ride </button>
+			<button class="button button-positive" ng-click="cancel_ride(key)">Cancel Ride</button>
 		</div> 
 	</div>
 </div>
