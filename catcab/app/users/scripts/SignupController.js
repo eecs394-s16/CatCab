@@ -5,8 +5,8 @@ angular
 		function($scope, $firebaseArray, $firebaseObject) {
 
 			$scope.phone_stored = localStorage.getItem("phoneNumber");
-			var ref = new Firebase("https://catcab.firebaseio.com/users");
-			$scope.users = $firebaseArray(ref);
+			// var ref = new Firebase("https://catcab.firebaseio.com/users");
+			// $scope.users = $firebaseArray(ref);
 
 	     	$scope.imgData = null;
 			$scope.imgSrc = null;
@@ -14,6 +14,8 @@ angular
 			$scope.valid_email = true;
 
 			$scope.addUser = function() {
+
+				supersonic.logger.log("Adding new user");
 
 				$scope.valid_email = $scope.email.endsWith("northwestern.edu");
 

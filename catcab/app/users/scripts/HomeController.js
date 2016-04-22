@@ -9,8 +9,8 @@ angular
 		});
 
 			$scope.phone = localStorage.getItem("phoneNumber");
-			var ref = new Firebase("https://catcab.firebaseio.com/users");
-			$scope.users = $firebaseArray(ref);
+			// var ref = new Firebase("https://catcab.firebaseio.com/users");
+			// $scope.users = $firebaseArray(ref);
 
 			var ref1 = new Firebase("https://catcab.firebaseio.com/users/" + $scope.phone);
 			$scope.userme = $firebaseObject(ref1);

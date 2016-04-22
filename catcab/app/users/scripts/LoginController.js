@@ -3,13 +3,13 @@ supersonic.logger.log("Outside angular")
 
 angular
 	.module('users')
-	.controller("LoginController", ["$scope", "$firebaseArray",
-		function($scope, $firebaseArray) {
+	.controller("LoginController", ["$scope", "$firebaseArray","$firebaseObject",
+		function($scope, $firebaseArray, $firebaseObject) {
 
 			$scope.badLogin = false;
 
-			var ref = new Firebase("https://catcab.firebaseio.com/users");
-			$scope.users = $firebaseArray(ref);
+			// var ref = new Firebase("https://catcab.firebaseio.com/users");
+			// $scope.users = $firebaseArray(ref);
 
 			$scope.phone_num = 0;
 			// supersonic.logger.log("HI there!"+$scope.phone);
@@ -19,7 +19,14 @@ angular
 				$scope.phone_num = $scope.phone;
 				localStorage.setItem("phoneNumber", $scope.phone );
 				// supersonic.logger.log("Phone: "+localStorage.getItem("phoneNumber"));
-				var myRecord = $scope.users.$getRecord($scope.phone_num);
+
+				var testRef = new Firebase("https://catcab.firebaseio.com/users/"+$scope.phone_num);
+				var obj = new $firebaseObject(testRef);
+				obj.$loaded().then(function() {
+						obj = obj.$value;
+					});
+				var myRecord = obj;
+				// var myRecord = $scope.users.$getRecord($scope.phone_num);
 
 				if (myRecord === null){
 					// user not in database, 
