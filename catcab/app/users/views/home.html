@@ -1,11 +1,11 @@
 <div ng-controller="HomeController">
 	<super-navbar>
-		<super-navbar-button side="right" ng-click="homeTapped()">
-			Home
-		</super-navbar-button>
     	<super-navbar-title>
           CatCab
     	</super-navbar-title>
+    	<super-navbar-button side="right" ng-click="logout_tapped()">
+    		Logout
+    	</super-navbar-button>
   	</super-navbar>
 	<h3 style="text-align: center; width:100%;"> Welcome, {{userme.firstName}}! Here are your most recent ride requests.</h3>
 	<super-navigate view-id="match_form" location="users#match_form">

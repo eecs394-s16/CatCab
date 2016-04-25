@@ -16,7 +16,7 @@ angular
 			$scope.login_user = function() {
 				// supersonic.logger.log("Phone: "+localStorage.getItem("phoneNumber"));
 
-				var userRef = new Firebase("https://catcab.firebaseio.com/users/"+phone);
+				var userRef = new Firebase("https://catcab.firebaseio.com/users/"+$scope.phone);
 				var obj = new $firebaseObject(userRef);
 				obj.$loaded().then(function() {
 					if (obj === null) {
@@ -30,13 +30,14 @@ angular
 						// got the user approved
 
 						// save local storage
+
 						supersonic.logger.log("Name is "+obj.firstName);
 
 						localStorage.setItem("firstName",obj.firstName);
 
 						localStorage.setItem("lastName", obj.lastName);
 
-						localStorage.setItem("phoneNumber", phone);
+						localStorage.setItem("phoneNumber", $scope.phone);
 
 						localStorage.setItem("imgSrc", obj.imgSrc);
 
@@ -47,9 +48,24 @@ angular
 						// var view = new supersonic.ui.View("users#home");
 						// var customAnimation = supersonic.ui.animate("flipVerticalFromBottom");
 						// supersonic.ui.layers.push(view, { animation: customAnimation });
-						supersonic.ui.views.start("users#home").then(function (startedView) {
-					  		supersonic.ui.layers.replace(startedView);
+						var homeView = new supersonic.ui.View({
+  							location: "users#home"	,
+  							id: "home"					
+  						});
+
+						homeView.isStarted().then(function(started){
+							if (started){
+								supersonic.ui.layers.replace(homeView);	
+							}
+							else
+							{
+								homeView.start().then(function () {
+									supersonic.ui.layers.replace(homeView);
+								});
+
+							}
 						});
+
 					}
 				});
 			};

@@ -34,5 +34,38 @@ angular
 			var time = hours + ':' + minutes + ' ' + ampm;
 			return date.toDateString() + " at " + time;
 		};
+
+
+		$scope.logout_tapped = function() {
+
+
+
+			// deletes from localStorage and goes to login page 
+			localStorage.removeItem("phoneNumber");
+			localStorage.removeItem("firstName");
+			localStorage.removeItem("lastName");
+			localStorage.removeItem("imgSrc");		
+
+			var loginView = new supersonic.ui.View({
+					location: "users#login",
+					id: "login"		
+			});
+
+			loginView.isStarted().then(function(started){
+				if (started){
+					supersonic.logger.log("It was started ");
+					supersonic.ui.layers.replace(loginView);	
+				}
+				else
+				{
+					supersonic.logger.log("i'm messing with you ");
+					loginView.start().then(function () {
+						supersonic.ui.layers.replace(loginView);
+					});
+
+				}
+			});
+
+		};
 	}
 ]);
