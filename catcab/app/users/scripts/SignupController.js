@@ -12,7 +12,7 @@ angular
 			$scope.imgSrc = 0;
 			$scope.firstName = "";
 			$scope.lastName = "";
-			$scope.phone = 0;
+			$scope.phone = null;
 			$scope.email = "@u.northwestern.edu";
 
 			$scope.valid_email = true;

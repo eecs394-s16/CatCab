@@ -4,19 +4,26 @@ angular
 		function($scope, $firebaseArray, $firebaseObject) {
 
 			if (localStorage.getItem("phoneNumber") !== null) {
-				supersonic.ui.views.start("users#home").then(function (startedView) {
-			  		supersonic.ui.layers.replace(startedView);
-				});
+
+				login_gral(localStorage.getItem("phoneNumber"));
+
 			}
 
 			$scope.badLogin = false;
 
 			// supersonic.logger.log("HI there!"+$scope.phone);
 
-			$scope.login_user = function() {
-				// supersonic.logger.log("Phone: "+localStorage.getItem("phoneNumber"));
 
-				var userRef = new Firebase("https://catcab.firebaseio.com/users/"+$scope.phone);
+			function login_gral(phone){
+
+				supersonic.logger.log("Phone is "+phone);
+
+				if (phone === null){
+					$scope.badLogin = true;
+					return;
+				}
+
+				var userRef = new Firebase("https://catcab.firebaseio.com/users/"+phone);
 				var obj = new $firebaseObject(userRef);
 				obj.$loaded().then(function() {
 					if (obj.$value === null) {
@@ -27,27 +34,14 @@ angular
 					}
 					else
 					{
-						// got the user approved
-
-						// save local storage
 
 						supersonic.logger.log("Name is "+obj.firstName);
-
 						localStorage.setItem("firstName",obj.firstName);
-
 						localStorage.setItem("lastName", obj.lastName);
-
-						localStorage.setItem("phoneNumber", $scope.phone);
-
+						localStorage.setItem("phoneNumber", phone);
 						localStorage.setItem("imgSrc", obj.imgSrc);
-
 						localStorage.setItem("matches", obj.matches);
 
-
-						// move to home view
-						// var view = new supersonic.ui.View("users#home");
-						// var customAnimation = supersonic.ui.animate("flipVerticalFromBottom");
-						// supersonic.ui.layers.push(view, { animation: customAnimation });
 						var homeView = new supersonic.ui.View({
   							location: "users#home"	,
   							id: "home"					
@@ -68,6 +62,13 @@ angular
 
 					}
 				});
+			}
+
+			$scope.login_user = function() {
+				// supersonic.logger.log("Phone: "+localStorage.getItem("phoneNumber"));
+
+				login_gral($scope.phone);
+
 			};
 		}
 	]);
