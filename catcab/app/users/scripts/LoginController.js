@@ -19,7 +19,7 @@ angular
 				var userRef = new Firebase("https://catcab.firebaseio.com/users/"+$scope.phone);
 				var obj = new $firebaseObject(userRef);
 				obj.$loaded().then(function() {
-					if (obj === null) {
+					if (obj.$value === null) {
 						// user not in database, 
 						// display a message saying "not in database"
 						// and show a sign-up button

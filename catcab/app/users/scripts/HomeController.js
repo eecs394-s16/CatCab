@@ -72,5 +72,27 @@ angular
 			});
 
 		};
+
+		$scope.load_match_form = function() {
+			var matchView = new supersonic.ui.View({
+					location: "users#match_form",
+					id: "match_form"		
+			});
+
+			supersonic.ui.layers.push(matchView);
+
+			// matchView.isStarted().then(function(started){
+			// 	if (started){
+			// 		supersonic.ui.layers.replace(matchView);	
+			// 	}
+			// 	else
+			// 	{
+			// 		matchView.start().then(function () {
+			// 			supersonic.ui.layers.replace(matchView);
+			// 		});
+
+			// 	}
+			// });
+		};
 	}
 ]);

@@ -1,16 +1,14 @@
 <div ng-controller="HomeController">
 	<super-navbar>
     	<super-navbar-title>
-          CatCab
+          Home
     	</super-navbar-title>
     	<super-navbar-button side="right" ng-click="logout_tapped()">
     		Logout
     	</super-navbar-button>
   	</super-navbar>
 	<h3 style="text-align: center; width:100%;"> Welcome, {{userme.firstName}}! Here are your most recent ride requests.</h3>
-	<super-navigate view-id="match_form" location="users#match_form">
-  <button class="button button-block button-royal icon-left super-plus">Find New Match</button>
-  </super-navigate>
+  	<button class="button button-block button-royal icon-left super-plus" ng-click="load_match_form()" >Find New Match</button>
 	<div ng-repeat="(key, match) in userme.matches">
 		<div ng-show="match.status == 'matched'" ng-init="user = get_user(match.myMatch.userId)" class="card" style="background-color:#9fdfbf; text-align: center;">
 			<h4>Ride Request - Match Found!</h4>

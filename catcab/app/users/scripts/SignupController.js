@@ -9,7 +9,11 @@ angular
 			// $scope.users = $firebaseArray(ref);
 
 	     	$scope.imgData = null;
-			$scope.imgSrc = null;
+			$scope.imgSrc = 0;
+			$scope.firstName = "";
+			$scope.lastName = "";
+			$scope.phone = 0;
+			$scope.email = "@u.northwestern.edu";
 
 			$scope.valid_email = true;
 
