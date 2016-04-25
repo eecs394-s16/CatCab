@@ -52,9 +52,8 @@ angular
 					localStorage.setItem("imgSrc", data.imgSrc);
 					
 					obj.$value = data;
-	  				obj.$save();
-
-					supersonic.logger.log("Added a user "+data.firstName+" and phone "+data.phone);
+	  				obj.$save().then(function(ref) {
+	  					supersonic.logger.log("Added a user "+data.firstName+" and phone "+data.phone);
 
 					localStorage.setItem("phoneNumber",$scope.phone);
 					localStorage.setItem("firstName",data.firstName);
@@ -63,6 +62,9 @@ angular
 					var customAnimation = supersonic.ui.animate("flipVerticalFromBottom");
 					supersonic.ui.layers.push(view, { animation: customAnimation });
 
+	  				});
+
+					
 				}
 				else
 				{
