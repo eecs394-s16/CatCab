@@ -13,6 +13,16 @@ angular
 		var ref1 = new Firebase("https://catcab.firebaseio.com/users/" + $scope.phone);
 		$scope.userme = $firebaseObject(ref1);
 
+
+		$scope.userme.$loaded().then(function()
+		// ref1.on("child_changed",function()
+		{
+			$scope.userme.$watch(function()
+			{
+				window.location.reload();
+			});
+		});
+
 		$scope.cancel_ride = function(v) {
 			$scope.userme.matches[v].status = 'cancelled';
 			$scope.userme.$save();
