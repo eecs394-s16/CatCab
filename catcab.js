@@ -7,49 +7,10 @@ var instantMatchLocations = {"MDW": {"ORD": null, "NU": null}, "ORD": {"MDW": nu
 var scheduledMatchLocations = {"MDW": {"ORD": [], "NU": []}, "ORD": {"MDW": [], "NU": []}, "NU": {"MDW": [], "ORD": []}};
 var requestsByTime = [];
 
-function nameToLoc(name) {
-  if (name.indexOf("Northwestern") !== -1) {
-    return "NU";
-  } else if (name.indexOf("ORD") !== -1) {
-    return "ORD";
-  } else if (name.indexOf("Midway") !== -1) {
-    return "MDW";
-  }
-}
-
-// Update a match in Firebase
-function updateMatch(userId, matchId, matchInfo) {
-  users.child(userId + "/matches/" + matchId).update({myMatch: matchInfo, status: matchInfo === "" ? "waiting" : "matched"});
-}
-
-// Find the index for a newTime in an array
-function timeInsertPoint(arr, newTime) {
-  var i = 0, len = arr.length;
-
-  while (i < len && arr[i].time < newTime) { i++; }
-
-  return i;
-}
-
-function setInstantMatch(match, userId, matchId) {
-  if (userId) {
-    instantMatchLocations[nameToLoc(match.origin)][nameToLoc(match.destination)] = {userId: userId, matchId: matchId};
-  } else {
-    instantMatchLocations[nameToLoc(match.origin)][nameToLoc(match.destination)] = null;
-  }
-}
-
-// Add a match to the local dictionary
-function addMatch(match, userId, matchId) {
-  if (match.type === "instant") {
-    setInstantMatch(match, userId, matchId);
-  } else if (match.type === "scheduled") {
-    var arr = scheduledMatchLocations[nameToLoc(match.origin)][nameToLoc(match.destination)];
-    var myTime = new Date(match.time);
-
-    arr.splice(timeInsertPoint(arr, myTime), 0, {time: myTime, userId: userId, matchId: matchId});
-  }
-}
+// Watch for changes to users
+users.orderByChild('timeStamp').endAt(Date.now()).on("child_added", oldUserHandler);
+users.orderByChild('timeStamp').startAt(Date.now()).on("child_added", newUserHandler);
+users.on("child_changed", newChangeHandler);
 
 // Processes new users who sign up
 function newUserHandler(data) {
@@ -78,7 +39,7 @@ function newChangeHandler(data) {
 
     switch (match.status) {
       case "waiting":
-        if (match.type === "instant") {
+        if (match.type === "now") {
           var myMatch = instantMatchLocations[nameToLoc(match.origin)][nameToLoc(match.destination)];
           if (myMatch) {
             if (myMatch.userId != data.key()) {
@@ -91,7 +52,7 @@ function newChangeHandler(data) {
             // No match, add ourselves to dictionary
             setInstantMatch(match, data.key(), matchId);
           }
-        } else if (match.type === "scheduled") {
+        } else if (match.type === "later") {
           var arr = scheduledMatchLocations[nameToLoc(match.origin)][nameToLoc(match.destination)];
           var myTime = new Date(match.time);
           var len = arr.length;
@@ -133,7 +94,7 @@ function newChangeHandler(data) {
       case "cancelled":
         if (match.myMatch === "") {
           // Cancelled while still waiting, delete myself from dictionaries
-          if (match.type === "instant") {
+          if (match.type === "now") {
             setInstantMatch(match, null);
           } else {
             var arr = scheduledMatchLocations[nameToLoc(match.origin)][nameToLoc(match.destination)];
@@ -158,10 +119,46 @@ function newChangeHandler(data) {
   }
 }
 
-// 
-users.orderByChild('timeStamp').endAt(Date.now()).on("child_added", oldUserHandler);
-users.orderByChild('timeStamp').startAt(Date.now()).on("child_added", newUserHandler);
-users.on("child_changed", newChangeHandler);
+function nameToLoc(name) {
+  if (name.indexOf("Northwestern") !== -1 || name === "Downtown Evanston") {
+    return "NU";
+  } else if (name.indexOf("ORD") !== -1) {
+    return "ORD";
+  } else if (name.indexOf("Midway") !== -1) {
+    return "MDW";
+  }
+}
 
-// Easy way to add a new match :D
-// users.child("8476368102").child("matches").push({destination: "Northwestern - North Campus", myMatch: "", origin: "ORD - Terminal 2", type: "instant", status: "waiting", time: new Date().toISOString()});
+// Update a match in Firebase
+function updateMatch(userId, matchId, matchInfo) {
+  users.child(userId + "/matches/" + matchId).update({myMatch: matchInfo, status: matchInfo === "" ? "waiting" : "matched"});
+}
+
+// Find the index for a newTime in an array
+function timeInsertPoint(arr, newTime) {
+  var i = 0, len = arr.length;
+
+  while (i < len && arr[i].time < newTime) { i++; }
+
+  return i;
+}
+
+function setInstantMatch(match, userId, matchId) {
+  if (userId) {
+    instantMatchLocations[nameToLoc(match.origin)][nameToLoc(match.destination)] = {userId: userId, matchId: matchId};
+  } else {
+    instantMatchLocations[nameToLoc(match.origin)][nameToLoc(match.destination)] = null;
+  }
+}
+
+// Add a match to the local dictionary
+function addMatch(match, userId, matchId) {
+  if (match.type === "now") {
+    setInstantMatch(match, userId, matchId);
+  } else if (match.type === "later") {
+    var arr = scheduledMatchLocations[nameToLoc(match.origin)][nameToLoc(match.destination)];
+    var myTime = new Date(match.time);
+
+    arr.splice(timeInsertPoint(arr, myTime), 0, {time: myTime, userId: userId, matchId: matchId});
+  }
+}
