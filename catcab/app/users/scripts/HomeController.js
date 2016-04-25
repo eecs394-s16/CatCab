@@ -24,6 +24,11 @@ angular
 		};
 
 		$scope.pretty_time = function(timeStr) {
+			// If timeStr is empty, we have a "now" match
+			if (timeStr==""){
+				// timeStr = new Date(); // Generates the current date/time
+				return "Now";
+			}
 			var date = new Date(timeStr);
 			var hours = date.getHours();
 			var minutes = date.getMinutes();
