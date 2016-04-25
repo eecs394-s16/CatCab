@@ -26,7 +26,7 @@
           <div class="input-label">Origin</div>
            
           <select ng-model="origin">
-            <option ng-repeat="loc in locations | orderBy:'order'">{{loc.name}}</option>
+            <option ng-repeat="loc in locations | orderBy:'order'| filter: searchText">{{loc.name}}</option>
           </select>
         </label>
 
@@ -34,7 +34,7 @@
           <div class="input-label">Destination</div>
            
           <select ng-model="destination">
-            <option ng-repeat="loc in locations | orderBy:'order'">{{loc.name}}</option>
+            <option ng-repeat="loc in locations | orderBy:'order'| filter:'!' + searchText">{{loc.name}}</option>
           </select>
         </label>
 
