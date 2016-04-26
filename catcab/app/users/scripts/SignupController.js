@@ -9,7 +9,7 @@ angular
 			// $scope.users = $firebaseArray(ref);
 
 	     	$scope.imgData = null;
-			$scope.imgSrc = 0;
+			$scope.imgSrc = null;
 			$scope.firstName = "";
 			$scope.lastName = "";
 			$scope.phone = null;
