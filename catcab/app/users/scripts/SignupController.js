@@ -43,7 +43,8 @@ angular
 							matches: "",
 							history: "",
 							sent_welcome: 0,
-							email: $scope.email
+							email: $scope.email,
+							timeStamp: Firebase.ServerValue.TIMESTAMP
 					};
 					
 					localStorage.setItem("phoneNumber",$scope.phone);
