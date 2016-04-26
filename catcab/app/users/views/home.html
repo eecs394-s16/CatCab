@@ -12,18 +12,29 @@
 	<div ng-repeat="(key, match) in userme.matches">
 		<div ng-show="match.status == 'matched'" ng-init="user = get_user(match.myMatch.userId)" class="card">
 
-			<div class="item item-divider">Confirmed!
-			</div>
+			<div class="item item-divider">Confirmed</div>
 
-			<div class="item item-text-wrap">
+			<div class="list">
 				<a class="item item-left" href="#">
 				      <img ng-src="{{user.imgSrc}}" style="width:50%; border-radius:5px">
-				     <div style="display: inline-block; margin-left:30px; margin-bottom:50px; line-height:;">
+				     <div style="display: inline-block; margin-left:30px;">
 				      <h1>{{user.firstName}}</h1>
 				      <h1>{{user.lastName}}</h1>
 				  	</div>
 				</a>
 			</div>
+			<div class="line-separator" style="height:1px; border-bottom:0.5px solid grey;"></div>
+
+
+
+			<div class="list" style="margin-left: 20px; margin-top:-10px">
+				<p>Contact: {{user.phone}}</p>
+				<p>Time: {{pretty_time(match.time)}}</p>
+				<p>From: {{match.origin}}</p>
+				<p>To: {{match.destination}}</p>
+				<button class="button button-positive" ng-click="cancel_ride(key)" style="margin-bottom: 12px; text-align: center">Decline ride</button>
+			</div>
+
 			<!-- <h4>Ride Request - Match Found!</h4>
 		  	<p>{{match.origin}} ➝ {{match.destination}}</p>
 			<p>Meet Your Match:</p>
