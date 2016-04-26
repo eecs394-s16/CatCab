@@ -21,7 +21,34 @@ angular
 
 				supersonic.logger.log("Adding new user");
 
-				$scope.valid_email = $scope.email.endsWith("northwestern.edu");
+				// $scope.valid_email = $scope.email.endsWith("northwestern.edu");
+
+				suffix = "northwestern.edu";
+				suff_len = (suffix).length;
+
+				// Invalid email cases
+				if ($scope.email[0] === "@"){
+					$scope.valid_email = false;
+					window.scrollTo(0,document.body.scrollHeight);
+
+				}
+
+				else if ($scope.email.length <= suff_len){
+					$scope.valid_email = false;
+					window.scrollTo(0,document.body.scrollHeight);
+
+				}
+
+				else if ($scope.email.substr(-suff_len) != suffix){
+					$scope.valid_email = false;
+					window.scrollTo(0,document.body.scrollHeight);
+
+				}
+
+				// Valid email case
+				else if ($scope.email.substr(-suff_len) === suffix){
+					$scope.valid_email = true;
+				}
 
 				if ($scope.valid_email === true)
 				{
