@@ -10,14 +10,27 @@
 	<h3 style="text-align: center; width:100%;"> Welcome, {{userme.firstName}}! Here are your most recent ride requests.</h3>
   	<button class="button button-block button-royal icon-left super-plus" ng-click="load_match_form()" >Find New Match</button>
 	<div ng-repeat="(key, match) in userme.matches">
-		<div ng-show="match.status == 'matched'" ng-init="user = get_user(match.myMatch.userId)" class="card" style="background-color:#9fdfbf; text-align: center;">
-			<h4>Ride Request - Match Found!</h4>
+		<div ng-show="match.status == 'matched'" ng-init="user = get_user(match.myMatch.userId)" class="card">
+
+			<div class="item item-divider">Confirmed!
+			</div>
+
+			<div class="item item-text-wrap">
+				<a class="item item-left" href="#">
+				      <img ng-src="{{user.imgSrc}}" style="width:50%; border-radius:5px">
+				     <div style="display: inline-block; margin-left:30px; margin-bottom:50px; line-height:;">
+				      <h1>{{user.firstName}}</h1>
+				      <h1>{{user.lastName}}</h1>
+				  	</div>
+				</a>
+			</div>
+			<!-- <h4>Ride Request - Match Found!</h4>
 		  	<p>{{match.origin}} ➝ {{match.destination}}</p>
 			<p>Meet Your Match:</p>
 			<img style="width: 40%" class="img_center" ng-src="{{user.imgSrc}}">
 			<h5>{{user.firstName}} {{user.lastName}}</h5>
 			<p>{{user.phone}}</p>
-			<button class="button button-positive" ng-click="cancel_ride(key)" style="margin-bottom: 12px;">Decline ride</button>
+			<button class="button button-positive" ng-click="cancel_ride(key)" style="margin-bottom: 12px;">Decline ride</button> -->
 		</div>
 
 		<div ng-show="match.status == 'waiting'" class="card" style="background-color:#ffffb3; text-align: center;">
