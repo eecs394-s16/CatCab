@@ -14,6 +14,7 @@ module.exports =
 
   rootView:
     location: "users#login"
+    id: "login"
 
   preloads: [
 #     {

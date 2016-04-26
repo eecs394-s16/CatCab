@@ -3,12 +3,8 @@ angular
 	.controller("LoginController", ["$scope", "$firebaseArray","$firebaseObject",
 		function($scope, $firebaseArray, $firebaseObject) {
 
-			$scope.loading = true;
-
 			if (localStorage.getItem("phoneNumber") !== null) {
 				login_gral(localStorage.getItem("phoneNumber"));
-			} else {
-				$scope.loading = false;
 			}
 
 			$scope.badLogin = false;
@@ -22,12 +18,9 @@ angular
 			};
 
 			function login_gral(phone){
-				$scope.loading = true;
-
 				supersonic.logger.log("Phone is "+phone);
 
 				if (phone === null){
-					$scope.loading = false;
 					$scope.badLogin = true;
 					return;
 				}
@@ -40,7 +33,6 @@ angular
 						// display a message saying "not in database"
 						// and show a sign-up button
 						$scope.badLogin = true;
-						$scope.loading = false;
 					} else {
 						supersonic.logger.log("Name is "+obj.firstName);
 						localStorage.setItem("firstName",obj.firstName);
