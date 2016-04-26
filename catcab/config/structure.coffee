@@ -16,10 +16,10 @@ module.exports =
     location: "users#login"
 
   preloads: [
-     {
-       id: "match_form"
-       location: "users#match_form"
-     }
+#     {
+#       id: "match_form"
+#       location: "users#match_form"
+#     }
 #    {
 #      id: "learn-more"
 #      location: "example#learn-more"

@@ -9,7 +9,11 @@ angular
 			// $scope.users = $firebaseArray(ref);
 
 	     	$scope.imgData = null;
-			$scope.imgSrc = null;
+			$scope.imgSrc = 0;
+			$scope.firstName = "";
+			$scope.lastName = "";
+			$scope.phone = null;
+			$scope.email = "@u.northwestern.edu";
 
 			$scope.valid_email = true;
 
@@ -48,9 +52,8 @@ angular
 					localStorage.setItem("imgSrc", data.imgSrc);
 					
 					obj.$value = data;
-	  				obj.$save();
-
-					supersonic.logger.log("Added a user "+data.firstName+" and phone "+data.phone);
+	  				obj.$save().then(function(ref) {
+	  					supersonic.logger.log("Added a user "+data.firstName+" and phone "+data.phone);
 
 					localStorage.setItem("phoneNumber",$scope.phone);
 					localStorage.setItem("firstName",data.firstName);
@@ -59,6 +62,9 @@ angular
 					var customAnimation = supersonic.ui.animate("flipVerticalFromBottom");
 					supersonic.ui.layers.push(view, { animation: customAnimation });
 
+	  				});
+
+					
 				}
 				else
 				{
