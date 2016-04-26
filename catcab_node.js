@@ -158,14 +158,22 @@ function updateMatch(userId, matchId, matchInfo) {
   }
   else
   {
-    var childRef = users.child(matchId);
-    childRef.once("value", function(snapshot) {
+    var matchNumber = matchInfo.userId;
+    console.log("Match number is :"+matchNumber);
+    //debugger;
+    //childRef.once("value", function(snapshot) {
+//	var matchData = snapshot.val();
+//	matchNumber = matchData.userId;
+  //  });
+    var matchRef = users.child(matchNumber);
+    matchRef.once("value", function(snapshot) {
 	var matchData = snapshot.val();
-	console.log(matchData);
+	console.log('Name of the match is :'+matchData.firstName+" "+matchData.lastName);
 	var name = matchData.firstName;
-    	console.log("name is: "+name);
+    	console.log("name of the match is: "+name);
     	sendMessage(userId,"",name,1);
    });
+  
   }
   users.child(userId + "/matches/" + matchId).update({myMatch: matchInfo, status: matchInfo === "" ? "waiting" : "matched"});
 }
@@ -203,6 +211,7 @@ function addMatch(match, userId, matchId) {
 
 var sendMessage = function(toNumber,fromName,matchName,type){
 
+  
   // TODO: Try to pull the name (js api)
   console.log("Sending Message!");
   if (type===0) // welcome 
@@ -238,7 +247,7 @@ var sendMessage = function(toNumber,fromName,matchName,type){
 
         to:'+1'+toNumber, // Any number Twilio can deliver to
         from: twilio_number, // A number you bought from Twilio and can use for outbound communication
-        body: 'You got matched with '+matchName+'! Load CatCab to see your match' // body of the SMS message
+        body: 'From Catcab: You got matched with '+matchName+'!'+String.fromCodePoint(0x1F695)+' Load CatCab to see your match' // body of the SMS message
 
       }, function(err, responseData) { //this function is executed when a response is received from Twilio
 
@@ -263,7 +272,7 @@ var sendMessage = function(toNumber,fromName,matchName,type){
 
         to:'+1'+toNumber, // Any number Twilio can deliver to
         from: twilio_number, // A number you bought from Twilio and can use for outbound communication
-        body: 'Bad news, your match had to cancel :(:( ! No worries, we still have you waiting for a ride.' // body of the SMS message
+        body: 'From Catcab: Bad news, your match had to cancel :( ! No worries, we still have you waiting for a ride.' // body of the SMS message
 
       }, function(err, responseData) { //this function is executed when a response is received from Twilio
 
