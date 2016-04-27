@@ -2,28 +2,20 @@ angular
 	.module('users')
 	.controller("HomeController", ["$scope", "$firebaseArray","$firebaseObject",
 		function($scope, $firebaseArray, $firebaseObject) {
-		
-		// view = new supersonic.ui.View("users#home");
-		// view.start("home").then(function (startedView) {
-	 //  		supersonic.ui.layers.replace(startedView);
-		// });
 
 		$scope.phone = localStorage.getItem("phoneNumber");
 
 		var ref1 = new Firebase("https://catcab.firebaseio.com/users/" + $scope.phone);
 		$scope.userme = $firebaseObject(ref1);
 
-
-		$scope.userme.$loaded().then(function()
-		// ref1.on("child_changed",function()
-		{
-			$scope.userme.$watch(function()
-			{
-				window.location.reload();
-			});
-		});
+		// $scope.userme.$loaded().then(function() {
+		// 	$scope.userme.$watch(function() {
+		// 		window.location.reload();
+		// 	});
+		// });
 
 		$scope.cancel_ride = function(v) {
+			supersonic.logger.log("Attempting to cancel ride with key " + v);
 			$scope.userme.matches[v].status = 'cancelled';
 			$scope.userme.$save();
 		};
@@ -33,9 +25,19 @@ angular
 			return $firebaseObject(userRef);
 		};
 
+		$scope.location_to_icon = function(location) {
+			if (location.indexOf("Northwestern") !== -1) {
+				return "super-university";
+			} else if (location === "Downtown Evanston") {
+				return "super-home";
+			} else if (location.indexOf("ORD") !== -1 || location.indexOf("Midway") !== -1) {
+				return "super-android-plane";
+			}
+		};
+
 		$scope.pretty_time = function(timeStr) {
 			// If timeStr is empty, we have a "now" match
-			if (timeStr==""){
+			if (timeStr === "") {
 				// timeStr = new Date(); // Generates the current date/time
 				return "Now";
 			}
@@ -50,11 +52,7 @@ angular
 			return date.toDateString() + " at " + time;
 		};
 
-
 		$scope.logout_tapped = function() {
-
-
-
 			// deletes from localStorage and goes to login page 
 			localStorage.removeItem("phoneNumber");
 			localStorage.removeItem("firstName");
@@ -70,14 +68,11 @@ angular
 				if (started){
 					supersonic.logger.log("It was started ");
 					supersonic.ui.layers.replace(loginView);	
-				}
-				else
-				{
+				} else {
 					supersonic.logger.log("i'm messing with you ");
 					loginView.start().then(function () {
 						supersonic.ui.layers.replace(loginView);
 					});
-
 				}
 			});
 
@@ -85,24 +80,11 @@ angular
 
 		$scope.load_match_form = function() {
 			var matchView = new supersonic.ui.View({
-					location: "users#match_form",
-					id: "match_form"		
+				location: "users#match_form",
+				id: "match_form"		
 			});
 
 			supersonic.ui.layers.push(matchView);
-
-			// matchView.isStarted().then(function(started){
-			// 	if (started){
-			// 		supersonic.ui.layers.replace(matchView);	
-			// 	}
-			// 	else
-			// 	{
-			// 		matchView.start().then(function () {
-			// 			supersonic.ui.layers.replace(matchView);
-			// 		});
-
-			// 	}
-			// });
 		};
 	}
 ]);
