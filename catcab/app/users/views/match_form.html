@@ -19,11 +19,18 @@
 <!-- new match form, connected to findMatch function -->
   <div class="info">
     <form ng-submit="findMatch()">      
+
+      <label class="item">
+        <div class="input-label inline">Leave</div>
+        <input type="radio" ng-model="leaveNowLater" value="now"> Now
+        <input type="radio" ng-model="leaveNowLater" value="later"> Later
+      </label>
+
        <label class="item item-input item-select">
           <div class="input-label">Origin</div>
            
           <select ng-model="origin">
-            <option ng-repeat="loc in locations | orderBy:'order'| filter: searchText">{{loc.name}}</option>
+            <option ng-repeat="loc in origins | orderBy:'order'">{{loc.name}}</option>
           </select>
         </label>
 
@@ -31,17 +38,12 @@
           <div class="input-label">Destination</div>
            
           <select ng-model="destination">
-            <option ng-repeat="loc in locations | orderBy:'order'| filter:'!' + searchText">{{loc.name}}</option>
+            <option ng-repeat="loc in destinations | orderBy:'order'">{{loc.name}}</option>
           </select>
         </label>
 
         <!-- Give user option between leaving now and later -->
         <!-- If they choose "later", the date/time option is revealed -->
-      <label class="item">
-          <div class="input-label inline">Leave</div>
-        <input type="radio" ng-model="leaveNowLater" value="now"> Now
-        <input type="radio" ng-model="leaveNowLater" value="later"> Later
-      </label>
         
         <div id="datetime" ng-show="leaveNowLater == 'later'">
         <label class="item item-input item-select">
