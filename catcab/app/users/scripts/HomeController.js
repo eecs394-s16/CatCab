@@ -35,6 +35,10 @@ angular
 			}
 		};
 
+		$scope.name_to_initial = function(str) {
+			return str.substring(0, 1) + ".";
+		};
+
 		$scope.pretty_time = function(timeStr) {
 			// If timeStr is empty, we have a "now" match
 			if (timeStr === "") {
