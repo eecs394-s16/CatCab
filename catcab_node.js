@@ -1,12 +1,12 @@
 var MAX_TIME_DIFF = 30 * 60 * 1000;
-
+var sendEnabled = 1;
 var Firebase = require("firebase");
 var client = require('./login').login_twilio();
 var twilio_number = require('./login').get_twilio_phone(); 
 console.log("Hi, starting node.js");
 
 console.log("phone to send from is "+twilio_number);
-
+console.log("Send Enabled is "+sendEnabled);
 
 var users = new Firebase('https://catcab.firebaseio.com/users');
 // TODO: generate these dictionaries dynamically
@@ -214,7 +214,7 @@ function addMatch(match, userId, matchId) {
 
 var sendMessage = function(toNumber,fromName,matchName,type){
 
-  
+  if (sendEnabled === 0) { return; }  
   // TODO: Try to pull the name (js api)
   console.log("Sending Message!");
   if (type===0) // welcome 
@@ -250,7 +250,7 @@ var sendMessage = function(toNumber,fromName,matchName,type){
 
         to:'+1'+toNumber, // Any number Twilio can deliver to
         from: twilio_number, // A number you bought from Twilio and can use for outbound communication
-        body: 'From Catcab: You got matched with '+matchName+'!'+String.fromCodePoint(0x1F695)+' Load CatCab to see your match' // body of the SMS message
+        body: 'From Catcab: You got matched with '+matchName+'! '+String.fromCodePoint(0x1F695)+'   Load CatCab to see your match' // body of the SMS message
 
       }, function(err, responseData) { //this function is executed when a response is received from Twilio
 
@@ -275,7 +275,7 @@ var sendMessage = function(toNumber,fromName,matchName,type){
 
         to:'+1'+toNumber, // Any number Twilio can deliver to
         from: twilio_number, // A number you bought from Twilio and can use for outbound communication
-        body: 'From Catcab: Bad news, your match had to cancel :( ! No worries, we still have you waiting for a ride.' // body of the SMS message
+        body: 'From Catcab: Bad news, your match had to cancel!'+String.fromCodePoint(0x1F622)+'  No worries, we still have you waiting for a ride and will let you know as soon as you get a match.' // body of the SMS message
 
       }, function(err, responseData) { //this function is executed when a response is received from Twilio
 

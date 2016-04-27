@@ -32,6 +32,7 @@ angular
       
       //get current location of the user
       var found_location = false;
+      $scope.searchText = "";
       supersonic.device.geolocation.getPosition().then( function(position) {
 
           found_location = true;
@@ -74,10 +75,18 @@ angular
       });
 
       $scope.locations.$loaded().then(function(){
-          $scope.origins = $scope.locations.filter(function(obj){
+
+          if ($scope.searchText === "")
+          {
+            $scope.origins = $scope.locations;
+          }
+          else
+          {
+              $scope.origins = $scope.locations.filter(function(obj){
                   // var truth = (obj.location === $scope.searchText);
                   return obj.location === $scope.searchText;
-              });
+              });    
+          }
           $scope.destinations = $scope.locations;
       });
 
