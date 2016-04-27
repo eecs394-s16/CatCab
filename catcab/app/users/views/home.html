@@ -8,47 +8,69 @@
     	</super-navbar-button>
   	</super-navbar>
 	<h3 style="text-align: center; width:100%;"> Welcome, {{userme.firstName}}! Here are your most recent ride requests.</h3>
-  	<button class="button button-block button-royal icon-left super-plus" ng-click="load_match_form()" >Find New Match</button>
-	<div ng-repeat="(key, match) in userme.matches">
-		<div ng-show="match.status == 'matched'" ng-init="user = get_user(match.myMatch.userId)" class="card">
+  	<button class="button button-full button-royal icon-left super-plus" ng-click="load_match_form()" >Find New Match</button>
 
-			<div class="item item-divider">Confirmed</div>
+  	<!-- Matched requests -->
+	<div ng-repeat="(key, match) in userme.matches" ng-if="match.status == 'matched'" ng-init="user = get_user(match.myMatch.userId)" class="list card">
+		<div class="item item-divider" style="background-color: green; color: white;">Match found!</div>
 
-			<div class="list">
-				<a class="item item-left" href="#">
-				      <img ng-src="{{user.imgSrc}}" style="width:50%; border-radius:5px">
-				     <div style="display: inline-block; margin-left:30px;">
-				      <h1>{{user.firstName}}</h1>
-				      <h1>{{user.lastName}}</h1>
-				  	</div>
-				</a>
-			</div>
-			<div class="line-separator" style="height:1px; border-bottom:0.5px solid grey;"></div>
-
-
-
-			<div class="list" style="margin-left: 20px; margin-top:-10px">
-				<p>Contact: {{user.phone}}</p>
-				<p>Time: {{pretty_time(match.time)}}</p>
-				<p>From: {{match.origin}}</p>
-				<p>To: {{match.destination}}</p>
-				<button class="button button-positive" ng-click="cancel_ride(key)" style="margin-bottom: 12px; text-align: center">Decline ride</button>
-			</div>
-
-			<!-- <h4>Ride Request - Match Found!</h4>
-		  	<p>{{match.origin}} ➝ {{match.destination}}</p>
-			<p>Meet Your Match:</p>
-			<img style="width: 40%" class="img_center" ng-src="{{user.imgSrc}}">
-			<h5>{{user.firstName}} {{user.lastName}}</h5>
-			<p>{{user.phone}}</p>
-			<button class="button button-positive" ng-click="cancel_ride(key)" style="margin-bottom: 12px;">Decline ride</button> -->
+		<div class="item item-thumbnail-left">
+			<img ng-src="{{user.imgSrc}}">
+			<h1>{{user.firstName}} {{user.lastName}}</h1>
 		</div>
 
-		<div ng-show="match.status == 'waiting'" class="card" style="background-color:#ffffb3; text-align: center;">
-			<h4>Ride Request - Waiting for Match</h4>
-			<h5>{{pretty_time(match.time)}}</h5>
-		  	<p>{{match.origin}} ➝ {{match.destination}}</p>
-			<button class="button button-positive" ng-click="cancel_ride(key)" style="margin-bottom: 12px;">Cancel request</button>
+		<div class="item item-icon-left">
+			<i class="icon super-ios-telephone"></i>
+			{{user.$id}}
+		</div>
+
+		<div class="item item-icon-left">
+			<i class="icon super-android-time"></i>
+			{{pretty_time(match.time)}}
+		</div>
+
+		<div class="item item-icon-left">
+			<i class="icon" ng-class="location_to_icon(match.origin)"></i>
+			{{match.origin}}
+		</div>
+
+		<div class="item item-icon-left">
+			<i class="icon" ng-class="location_to_icon(match.destination)"></i>
+			{{match.destination}}
+		</div>
+
+		<div class="item item-button-left" ng-click="cancel_ride(key)">
+			<button class="button button-assertive">
+				<i class="icon super-close-round"></i>
+			</button>
+			Decline ride
+		</div>
+	</div>
+
+	<!-- Unmatched requests -->
+	<div ng-repeat="(key, match) in userme.matches" ng-if="match.status == 'waiting'" class="list card">
+		<div class="item item-divider">Waiting...</div>
+
+		<div class="item item-icon-left">
+			<i class="icon super-android-time"></i>
+			{{pretty_time(match.time)}}
+		</div>
+
+		<div class="item item-icon-left">
+			<i class="icon" ng-class="location_to_icon(match.origin)"></i>
+			{{match.origin}}
+		</div>
+
+		<div class="item item-icon-left">
+			<i class="icon" ng-class="location_to_icon(match.destination)"></i>
+			{{match.destination}}
+		</div>
+
+		<div class="item item-button-left" ng-click="cancel_ride(key)">
+			<button class="button button-assertive">
+				<i class="icon super-close-round"></i>
+			</button>
+			Cancel request
 		</div>
 	</div>
 </div>

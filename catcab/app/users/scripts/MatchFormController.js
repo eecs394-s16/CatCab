@@ -3,7 +3,6 @@ angular
   .controller("MatchFormController", ["$scope", "$firebaseArray",
     function($scope, $firebaseArray) {
       //create connection with the db, put users into the "users" folder on firebase
-      var ref = new Firebase("https://catcab.firebaseio.com/users");
       var dest_ref = new Firebase("https://catcab.firebaseio.com/destinations");
       var org_ref = new Firebase("https://catcab.firebaseio.com/origins");
       var loc_ref = new Firebase("https://catcab.firebaseio.com/locations");
@@ -11,7 +10,6 @@ angular
       $scope.destinations = $firebaseArray(dest_ref);
       $scope.origins = $firebaseArray(org_ref);
       $scope.locations = $firebaseArray(loc_ref);
-      $scope.users = $firebaseArray(ref);
 
       $scope.leaveNowLater = "now";
 
