@@ -8,10 +8,9 @@ angular
       var org_ref = new Firebase("https://catcab.firebaseio.com/origins");
       var loc_ref = new Firebase("https://catcab.firebaseio.com/locations");
       // download the data into a local object
-      $scope.destinations = $firebaseArray(dest_ref);
-      $scope.origins = $firebaseArray(org_ref);
+      // $scope.destinations = $firebaseArray(dest_ref);
+      // $scope.origins = $firebaseArray(org_ref);
       $scope.locations = $firebaseArray(loc_ref);
-      $scope.users = $firebaseArray(ref);
 
       $scope.leaveNowLater = "now";
 
@@ -33,7 +32,10 @@ angular
       var user_matches_ref = new Firebase("https://catcab.firebaseio.com/users/"+$scope.phone+"/matches");
       
       //get current location of the user
+      var found_location = false;
       supersonic.device.geolocation.getPosition().then( function(position) {
+
+          found_location = true;
           var latitude = position.coords.latitude;
           var longitude = position.coords.longitude;
           //current location is northwestern
@@ -49,12 +51,73 @@ angular
           //current location is Midway
           if (latitude >= 41.775 && latitude <= 41.795){
             $scope.currLocation = "Midway";
-            $scope.currLocation = "Midway";
+            $scope.searchText = "Midway";
+          }
+      }).then(function(){
+          //display options or display nothing
+          supersonic.logger.log("Hi there, position found");
+          if (found_location === true)
+          {
+              supersonic.logger.log("Search location is "+$scope.searchText);
+
+              supersonic.logger.log("Candidates are"+$scope.locations);
+
+              
+              supersonic.logger.log($scope.origins);
+
+              $scope.destinations = $scope.locations;
+          }
+          else
+          {
+              $scope.origins = $scope.locations;
+              $scope.destinations = $scope.locations;
           }
       });
 
+      $scope.locations.$loaded().then(function(){
+          $scope.origins = $scope.locations.filter(function(obj){
+                  // var truth = (obj.location === $scope.searchText);
+                  return obj.location === $scope.searchText;
+              });
+          $scope.destinations = $scope.locations;
+      });
 
+      $scope.$watch('leaveNowLater', function(value) {
+        
+        supersonic.logger.log(value);
+        if (value === "now")
+        {
+          if (found_location === true)
+          {
+            supersonic.logger.log("Search location is "+$scope.searchText);
 
+            $scope.origins = $scope.locations.filter(function(obj){
+                return obj.location === $scope.searchText;
+            });
+            $scope.destinations = $scope.locations;
+          }
+          else
+          {
+              $scope.origins = $scope.locations;
+              $scope.destinations = $scope.locations;
+          } 
+        }
+        else
+        {
+          $scope.origins = $scope.locations;
+          $scope.destinations = $scope.locations;
+        }
+
+      
+      });
+
+      $scope.$watch('origin', function(value) {
+          supersonic.logger.log("Value is "+value);
+          $scope.destinations = $scope.locations.filter(function(obj){
+              if (value === null){ return true; }
+              return obj.name != value;
+          });
+      });
 
       $scope.findMatch = function(){
 
@@ -112,29 +175,29 @@ angular
 
 
      //get current location of the user - CURRENTLY UNUSED
-      supersonic.device.geolocation.getPosition().then( function(position) {
-          var latitude = position.coords.latitude;
-          var longitude = position.coords.longitude;
-          //current location is northwestern
-          if (latitude >= 42.01 && latitude <= 42.08){
-            $scope.currLocation = "Northwestern";
-            $scope.searchText = "Northwestern";
-          }
-          //current location is O'Hare
-          if (longitude >= -87.94 && longitude <= -87.87){
-            $scope.currLocation = "O'Hare";
-            $scope.searchText = "O'Hare";
-          }
-          //current location is Midway
-          if (latitude >= 41.775 && latitude <= 41.795){
-            $scope.currLocation = "Midway";
-            $scope.currLocation = "Midway";
-          }
+      // supersonic.device.geolocation.getPosition().then( function(position) {
+      //     var latitude = position.coords.latitude;
+      //     var longitude = position.coords.longitude;
+      //     //current location is northwestern
+      //     if (latitude >= 42.01 && latitude <= 42.08){
+      //       $scope.currLocation = "Northwestern";
+      //       $scope.searchText = "Northwestern";
+      //     }
+      //     //current location is O'Hare
+      //     if (longitude >= -87.94 && longitude <= -87.87){
+      //       $scope.currLocation = "O'Hare";
+      //       $scope.searchText = "O'Hare";
+      //     }
+      //     //current location is Midway
+      //     if (latitude >= 41.775 && latitude <= 41.795){
+      //       $scope.currLocation = "Midway";
+      //       $scope.currLocation = "Midway";
+      //     }
 
 
 
 
-      });
+      // });
 
 
       
