@@ -19,10 +19,10 @@
 			<h1>{{user.firstName}} {{name_to_initial(user.lastName)}}</h1>
 		</div>
 
-		<div class="item item-icon-left">
+		<a class="item item-icon-left" href="tel:{{user.$id}}">
 			<i class="icon super-ios-telephone"></i>
 			{{user.$id}}
-		</div>
+		</a>
 
 		<div class="item item-icon-left">
 			<i class="icon super-android-time"></i>
