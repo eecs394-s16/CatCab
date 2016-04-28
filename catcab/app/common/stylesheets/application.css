@@ -77,3 +77,24 @@
 .list:last-child.card {
   margin-bottom: 20px;
 }
+
+.item-thumbnail-left {
+  padding-left: 160px;
+  padding-right: 0;
+  min-height: 160px;
+}
+
+.item-thumbnail-left > img:first-child {
+  max-width: 140px;
+  max-height: 140px;
+  width: 140px;
+  height: 140px;
+}
+
+.item-thumbnail-left h1:first-of-type {
+  margin-top: 25px;
+}
+
+.item-thumbnail-left h1 {
+  font-size: 35px;
+}

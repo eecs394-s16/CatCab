@@ -36,7 +36,9 @@ angular
 		};
 
 		$scope.name_to_initial = function(str) {
-			return str.substring(0, 1) + ".";
+			if (str) {
+				return str.substring(0, 1) + ".";
+			}
 		};
 
 		$scope.pretty_time = function(timeStr) {

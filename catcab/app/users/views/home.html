@@ -16,12 +16,15 @@
 
 		<div class="item item-thumbnail-left">
 			<img ng-src="{{user.imgSrc}}">
-			<h1>{{user.firstName}} {{name_to_initial(user.lastName)}}</h1>
+			<h1>{{user.firstName}}</h1>
+			<h1>{{user.lastName}}</h1>
 		</div>
 
 		<a class="item item-icon-left" href="tel:{{user.$id}}">
 			<i class="icon super-ios-telephone"></i>
-			{{user.$id}}
+			<div style="color: blue; text-decoration: underline;">
+				{{user.$id}}
+			</div>
 		</a>
 
 		<div class="item item-icon-left">
